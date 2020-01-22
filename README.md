@@ -9,6 +9,6 @@ For tech savvy traders who want to use Deep Neural Networks (DNN) in order to pr
 
  1. Determine a statistically reasonable return on investment and price target
 
-Automatically place buy, sell, and short orders accordingly whenever a strong pattern or moving average is detected within the user designated time scale (ie: minute,hourly,daily, weekly, etc.)
+ 1. Automatically place buy, sell, and short orders accordingly whenever a strong pattern or moving average is detected within the user designated time scale (ie: minute,hourly,daily, weekly, etc.)
 
 Precedence for algorithmic trading currently exists in the market space. Companies like Barchart, inc. Credit Suisse, and Redline Trading Solutions inc. offer similar algorithmic trading solutions to those we will employ. The main difference between Zoltar and these algorithmic pattern trading approaches will be our use of DNNs to give our pattern recognition machine learning algorithm the power to recognize potential stock movement with precision more rudimentary approaches simply can’t.
