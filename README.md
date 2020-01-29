@@ -15,5 +15,26 @@ For tech savvy traders who want to use Deep Neural Networks (DNN) in order to pr
 
 Precedence for algorithmic trading currently exists in the market space. Companies like Barchart, inc. Credit Suisse, and Redline Trading Solutions inc. offer similar algorithmic trading solutions to those we will employ. The main difference between Zoltar and these algorithmic pattern trading approaches will be our use of DNNs to give our pattern recognition machine learning algorithm the power to recognize potential stock movement with precision more rudimentary approaches simply can’t.
 
+## Team Members
+- Garett Goodale
+- Kyle Sizemore
+- James (Anton) Strickland
+
+# Sprint 1
+For the backlog, the product backlog is everything that is the in the planned list, during a sprint they will be added to the assigned list and will be counted toward the burndown and velocity charts once they are done.
+
+- [Backlog](https://trello.com/b/R5ba69Q2/backlog)
+- [Requirements](https://github.com/drhollander/COP4331_Sample/blob/master/artifacts/requirements.md)
+- [Burndown Chart](https://www.google.com/search?tbm=isch&q=sprint+burndown+chart)
+- [Velocity Chart](https://www.google.com/search?tbm=isch&q=agile+velocity+chart)
+- Design Documents
+  - System Architecture
+  - Class Diagrams
+  - Sequence Diagrams
+  - etc.
+- Source Code
+- Automated Tests
+- Product Demonstration
+
 Link to G-Drive: https://drive.google.com/drive/folders/1s2JQf2XJ4-yGBhVwbMpjhfSFpRsE7jN6?usp=sharing
 Link to Trello:  https://trello.com/invite/b/Z0cqp1Re/cff9887d4bc1bbd212af5a9b60f3080f/team19-cop4331c
