@@ -24,7 +24,7 @@ Precedence for algorithmic trading currently exists in the market space. Compani
 For the backlog, the product backlog is everything that is the in the planned list, during a sprint they will be added to the assigned list and will be counted toward the burndown and velocity charts once they are done.
 
 - [Backlog](https://trello.com/b/R5ba69Q2/backlog)
-- [Requirements](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/Requirements/Sprint_1.md)
+- [Requirements](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Requirements/Sprint_1.md)
 - [Burndown Chart](https://www.google.com/search?tbm=isch&q=sprint+burndown+chart)
 - [Velocity Chart](https://www.google.com/search?tbm=isch&q=agile+velocity+chart)
 - Design Documents
