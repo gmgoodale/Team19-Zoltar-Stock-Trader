@@ -25,8 +25,8 @@ For the backlog, the product backlog is everything that is the in the planned li
 
 - [Backlog](https://trello.com/b/R5ba69Q2/backlog)
 - [Requirements](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Requirements/Sprint_1.md)
-- [Burndown Chart](https://www.google.com/search?tbm=isch&q=sprint+burndown+chart)
-- [Velocity Chart](https://www.google.com/search?tbm=isch&q=agile+velocity+chart)
+- [Burndown Chart](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
+- [Velocity Chart](https://docs.google.com/spreadsheets/d/1TEj-LAV9QyJCdmxjmW1_LJOCGpGU6-L8Xn1yxAgKH0k/edit?usp=sharing)
 - Design Documents
   - System Architecture
   - Class Diagrams
