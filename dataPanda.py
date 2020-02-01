@@ -8,14 +8,12 @@ import datetime
 import pandas as pd
 import pandas_datareader.data as web
 
-
-
 start = datetime.datetime(2019,1,1)
-end = datetime.datetime(2019,5,31)
-df_500 = web.DataReader('^GSPC', 'yahoo',start,end)
-df_500.tail()
-print (df_500[:5])
+end = datetime.datetime.now()
+ticker = 'SPCE'
+df = web.DataReader(ticker, 'yahoo',start,end)
+print('Exporting ' + ticker + ' data to csv...')
+df[['Open','Close']].iloc[:].to_csv('./' + ticker+'_PriceData.csv')
+print(ticker + ' Exported successfully')
 
-#import sys
-#for p in sys.path:
-#    print(p)
+#print (df[['Open','Close']].iloc[:])
