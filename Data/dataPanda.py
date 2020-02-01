@@ -13,7 +13,7 @@ end = datetime.datetime.now()
 ticker = 'SPCE'
 df = web.DataReader(ticker, 'yahoo',start,end)
 print('Exporting ' + ticker + ' data to csv...')
-df[['Open','Close']].iloc[:].to_csv('./' + ticker+'_PriceData.csv')
+df[['Open','Close']].iloc[:].to_csv('Tickers/' + ticker+'_PriceData.csv')
 print(ticker + ' Exported successfully')
 
 #print (df[['Open','Close']].iloc[:])
