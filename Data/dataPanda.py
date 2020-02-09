@@ -14,18 +14,21 @@ import csv
 start = datetime.datetime(1980,1,1)
 end = datetime.datetime.now()
 tickers = []
+numberOfTickers = 15
 with open('TargetTickers.csv') as csvDataFile:
     csvReader = csv.reader(csvDataFile)
     for row in csvReader:
         tickers.append(row[0])
-for t in tickers[:25]:
+for t in tickers[:numberOfTickers]:
     try:
         df = web.DataReader(t, 'yahoo',start,end)
         print('Exporting ' + t + ' data to csv...')
         df[['Open','Close']].iloc[:].to_csv('Tickers/' + t+'_PriceData_Long.csv')
+        print(t + ' Exported successfully')
     except:
         print('Bad ticker: ' + t)
+        numberOfTickers += 1
         pass
-print(t + ' Exported successfully')
+print('Tickers Succesfully Exported')
 
 #print (df[['Open','Close']].iloc[:])
