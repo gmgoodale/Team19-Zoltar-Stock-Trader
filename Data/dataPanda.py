@@ -1,7 +1,8 @@
 #Kyle Sizemore
 #2/7/2020
 
-#pull historical data from the market for backtesting purposes and output to a file.
+# pull historical data from the market for backtesting purposes and output to a
+# csv file on our mySQL database
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import datetime
@@ -9,6 +10,7 @@ import pandas as pd
 import pandas_datareader.data as web
 import csv
 
+# 40 years back
 start = datetime.datetime(1980,1,1)
 end = datetime.datetime.now()
 tickers = []
