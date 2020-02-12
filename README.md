@@ -40,7 +40,7 @@ The Trello backlog contains both the product backlog and sprint backlog. The pro
 
 # Sprint 2
 - [Product Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit?usp=sharing)
-- [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
+- [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit?usp=sharing)
 - [Trello Board](https://trello.com/b/R5ba69Q2/backlog)
 - [Requirements](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1618298820)
 - [Burndown Chart](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
