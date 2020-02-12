@@ -23,8 +23,10 @@ Precedence for algorithmic trading currently exists in the market space. Compani
 # Sprint 1
 The Trello backlog contains both the product backlog and sprint backlog. The product backlog is everything that is the in the planned list, during a sprint they will be added to the assigned list and will be counted toward the burndown and velocity charts once they are done.
 
-- [Backlog](https://trello.com/b/R5ba69Q2/backlog)
-- [Requirements](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Requirements/Sprint_1.md)
+- [Product Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit?usp=sharing)
+- [Sprint 1 Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1490684482)
+- [Trello Board](https://trello.com/b/R5ba69Q2/backlog)
+- [Requirements](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1618298820)
 - [Burndown Chart](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
 - [Velocity Chart](https://docs.google.com/spreadsheets/d/1TEj-LAV9QyJCdmxjmW1_LJOCGpGU6-L8Xn1yxAgKH0k/edit?usp=sharing)
 - Design Documents
@@ -37,8 +39,23 @@ The Trello backlog contains both the product backlog and sprint backlog. The pro
 - Product Demonstration
 
 # Sprint 2
-- [Backlog](https://trello.com/b/R5ba69Q2/backlog)
-- [Requirements](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Requirements/Sprint_1.md)
+- [Product Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit?usp=sharing)
+- [Sprint 2 Backlog](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
+- [Trello Board](https://trello.com/b/R5ba69Q2/backlog)
+- [Requirements](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1618298820)
+- [Burndown Chart](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
+- [Velocity Chart](https://docs.google.com/spreadsheets/d/1TEj-LAV9QyJCdmxjmW1_LJOCGpGU6-L8Xn1yxAgKH0k/edit?usp=sharing)
+- Design Documents
+    - [System Architecture](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Requirements/State%20Diagram.jpg)
+- Source Code
+- Automated Tests
+- [Product Demonstration](https://www.youtube.com/watch?v=5T3zfyyQa_Q)
+
+# Sprint 3
+- [Product Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit?usp=sharing)
+- [Sprint 3 Backlog](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1367225109g)
+- [Trello Board](https://trello.com/b/R5ba69Q2/backlog)
+- [Requirements](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1618298820)
 - [Burndown Chart](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
 - [Velocity Chart](https://docs.google.com/spreadsheets/d/1TEj-LAV9QyJCdmxjmW1_LJOCGpGU6-L8Xn1yxAgKH0k/edit?usp=sharing)
 - Design Documents
