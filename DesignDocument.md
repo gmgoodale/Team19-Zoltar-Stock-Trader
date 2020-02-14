@@ -7,7 +7,8 @@ Before run time, our data scraper pulls current market data into our database. T
 As a trader, I want to be able to easily search for market data on a desired tickers to make quick trading decisions. I want to the program to attempt to predict future price action so that I may make better trading decisions. I want to be able to visualize the programs prediction so that I can pick specific entry and exit points for my position.
 
 ## Class Description
-There are four classes in our design. dataPanda.py which collects and stores data. DNN.py which pulls data from the database and outputs its results. The DNN's results are taken in by our GUI.py which creates a visual graph composed of csv file data. The GUI is tied to our final class, Window.py which presents the user with our generated graph and action listening fields for user input.
+There are four classes in our design. DataHandler.py collects and stores data. DataHandler.py has an engine, a start, a end, and a target ticker. Its job is to scrape yahoo finance for data and plug it into our database. sqlDataBase.py has an engine and performs sql querys and returns dataframes for use in our dnn and graphing software. DNN.py pulls data from the database, trains itself, and outputs its results. The DNN's results are taken in by our Grapher.py class which creates a visual graph composed of dataframe data. The Grapher is tied to our final class, Window.py which presents the user with our generated graph and action listening fields for user input.
+
 ## User Story Architecture Relation
 As a trader I want to quickly access DNN predictions from a user interface to make better trading decisions.
 ## User Interface Description
