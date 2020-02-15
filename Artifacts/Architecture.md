@@ -4,7 +4,7 @@ Populate each section with information as it applies to your project. If a secti
 
 You should have a diagram of your high level architecture in this section, along with a description of each component and a table that relates each component to one or more user stories.
 
-![HighLevelDesign](Artifacts/State_Diagram.jpg)
+![HighLevelDesign](State_Diagram.jpg)
 
 # Major Classes
 
