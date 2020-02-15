@@ -78,6 +78,8 @@ Zoltar runs locally so it is not meant for widespread scaling.
 
 # Build-vs-Buy Decisions
 
+We've decided to take advantage of a long list of api's afforded to us by the miniconda package (manually installed smaller version of Anaconda) for our project. Python and subsequently, Anaconda, are known for their extensive data analysis packages which just made it them a natural fit for what we are trying to accomplish with zoltar. For data handling we utilize the pymysql and sqlalchemy packages for their sql query and engine methods. We utilize Pandas for their extremely powerful dataFrame object type which is utilized in our data handling, data acquisition, and graphical interface. Numpy is used by both our DNN and GUI. The GUI utilizes tkinter, matplotlib, and seaborn to create windows and graphs. Our DNN of choice for data processing comes from the Keras package due to its ease of use. 
+
 <!---This section should list the third party libraries your system is using and describe what those libraries are being used for.--->
 
 # Reuse
