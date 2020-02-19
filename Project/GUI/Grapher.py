@@ -5,7 +5,7 @@ import seaborn
 import pandas
 from numpy.random import randint
 
-class Graph:
+class Grapher:
     def __init__(self):
         self.unitTests()
 
