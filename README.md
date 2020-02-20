@@ -64,6 +64,6 @@ The Trello backlog contains both the product backlog and sprint backlog. The pro
     - [System Architecture](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Artifacts/Architecture.md)
     - [Class Diagrams](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Artifacts/ClassDiagrams.md)
     - [Sequence Diagrams](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Artifacts/SequenceDiagrams.md)
-- Source Code
-- Automated Tests
+- [Source Code](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Project)
+- [Automated Tests](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Project)
 - [Product Demonstration](https://www.youtube.com/watch?v=5T3zfyyQa_Q)
