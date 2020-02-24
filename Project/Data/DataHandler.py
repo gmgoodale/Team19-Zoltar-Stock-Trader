@@ -13,15 +13,17 @@ import pymysql
 from sqlalchemy import create_engine
 import import numpy as np
 
-class Datahandler:
+class DataHandler:
     engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
     start = datetime.datetime(1980,1,1)
     end = datetime.datetime.now()
     tickers = []
     numberOfTickers = 15
+    df = pd.DataFrame()
 
     def __init__(self):
-        self.unitTests()
+        self.exportTickers()
+
     def readTickers():
         with open('TargetTickers.csv') as csvDataFile:
             csvReader = csv.reader(csvDataFile)
@@ -31,27 +33,27 @@ class Datahandler:
     def GenYahDataFrame(t):
         try:
             df = web.DataReader(t, 'yahoo',start,end)
-            return df
+
         except:
             print('Bad ticker: ' + t)
-            return None
+            df = None
 
-    def TrimDataFrame(df):
-        return df.drop(columns = ['High','Low','Volume','Adj Close'])
+    def TrimDataFrame():
+        df = df.drop(columns = ['High','Low','Volume','Adj Close'])
 
-    def sqlExport(df, t):
+    def sqlExport(t):
         try:
             df.to_sql(t.lower(),con = engine,index = True,index_label='Date',if_exists = 'append',method = None)
         except ValueError as vx:
-            print(vx)
+            return (vx)
         except Exception as ex:
-            print(ex)
+            return (ex)
         else:
-            print('Exported ' + t + ' data to SQL')
+            return ('Exported ' + t + ' data to SQL')
 
     def toNumpy(endDate,dayInterval,ticker):
-        df = GenYahDataFrame(ticker)
-        df = TrimDataFrame(df)
+        GenYahDataFrame(ticker)
+        TrimDataFrame(df)
         numpyRows = len(df)/dayInterval
         np = numpy.zeroes(shape(numpyRows, 2))
         numpyIndex = 0
@@ -65,10 +67,10 @@ class Datahandler:
                 break
         return np
 
-    def unitTests():
+    def exportTickers():
         for t in tickers[:numberOfTickers]:
-            df = GenYahDataFrame(t)
+            GenYahDataFrame(t)
             if df != None:
-                df = TrimDataFrame(df)
+                TrimDataFrame(df)
                 sqlExport(df, t)
-        print('Tickers Succesfully Exported')
+        return('Tickers Succesfully Exported')
