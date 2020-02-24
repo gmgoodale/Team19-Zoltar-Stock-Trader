@@ -44,11 +44,15 @@ We still need some sort of diagram relating these. More than the state diagram.
 
 - Grapher: This is behind the window and provides a module for graphing functionality.
 
-![ClassDiagram](UML_Class_Diagram.jpg)
+![ClassDiagram](UML_Class_Diagram.jpeg)
 
 # Data Design
 
 <!---If you are using a database, you should have a basic Entity Relationship Diagram (ERD) in this section. This diagram should describe the tables in your database and their relationship to one another (especially primary/foreign keys), including the columns within each table.--->
+
+# Sequence Diagram
+
+![ClassDiagram](SequenceDiagram.jpg)
 
 # Business Rules
 
