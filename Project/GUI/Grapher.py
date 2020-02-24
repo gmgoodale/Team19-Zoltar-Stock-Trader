@@ -41,7 +41,6 @@ class GrapherTester:
         subject = Grapher()
         testFileName = 'TestData.csv'
         testStockName = 'Test Stock'
-        self.createTestData()
         testGenerateGraphWithAllPositiveNumbers(testFileName, testStockName)
 
     def createTestData(xAxis, yAxis):
@@ -51,9 +50,10 @@ class GrapherTester:
         return dataFrame
 
     def testGenerateGraphWithAllPositiveNumbers(self, testFileName, stockName):
+        dataFrame = self.createTestData([0, 1, 2, 3, 4], [3, 5, 1, 2, 6])
         subject.generateGraph(predictionFileName = "TestData.csv")
         assert os.path.exists(self.testStockName + " Graph.png")
 
-    def testGenerateGraphWithBadNumbers(self, testFileName, stockName):
+    def testGenerateGraphWithSomeBadNumbers(self, testFileName, stockName):
         dataFrame = self.createTestData([0, 1, 2, 3, 4], [3, 5, -1, 2, 6])
         assert subject.generateGraph(testFileName, dataFrame) == False
