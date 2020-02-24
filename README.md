@@ -67,3 +67,14 @@ The Trello backlog contains both the product backlog and sprint backlog. The pro
 - [Source Code](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Project)
 - [Automated Tests](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Project)
 - [Product Demonstration](https://www.youtube.com/watch?v=5T3zfyyQa_Q)
+
+# Sprint 4
+- [Trello Board](https://trello.com/b/R5ba69Q2/backlog)
+- [Requirements](https://docs.google.com/spreadsheets/d/1nw4fwDOzFGRjPEZIJ7s-dB3gCKHb7-9gry78R4bKXR8/edit#gid=1618298820)
+- [Burndown Chart](https://docs.google.com/spreadsheets/d/1xkXSTrB2lRDD2SgPfEjb85qfRmd5L4jz71VnwdBxHb0/edit?usp=sharing)
+- [Velocity Chart](https://docs.google.com/spreadsheets/d/1TEj-LAV9QyJCdmxjmW1_LJOCGpGU6-L8Xn1yxAgKH0k/edit?usp=sharing)
+- [Design Document](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Artifacts/Architecture.md)
+- [Source Code](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Project)
+- [Automated Tests](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Project)
+- [Product Demonstration]()
+- [Responsibilities](https://github.com/gmgoodale/Team19-Zoltar-Stock-Trader/blob/master/Artifacts/Responsibilities.md)

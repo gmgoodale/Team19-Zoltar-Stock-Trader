@@ -10,7 +10,11 @@ We still need some sort of diagram relating these. More than the state diagram.
 
 - UI: The User Interface provides a way to interact with Zoltar and provides Visualization on the accuracy of market predictions.
 
-- Historic’s: This is just a database with the stock data the user desires for fast display in the UI and fast training of the DNN
+- DataHandler: This is just a database with the stock data the user desires for fast display in the UI and fast training of the DNN
+
+## Level 1
+
+![Level 1](C4_Zoltar_L1.pdf)
 
 ![StateDiagram](State_Diagram.jpg)
 
@@ -86,6 +90,6 @@ We've decided to take advantage of a long list of api's afforded to us by the mi
 
 # Reuse
 
-Any of the main classes for this project could be reused. The DNN could be restructured and trained on different data, the window could be adapted to display other data of interest, and the data tool could gather data from other databases. However, since this project largely takes advantage of other APIs, that code could be created fairly easily directly for it's desired application, so reuse is unlikely. 
+Any of the main classes for this project could be reused. The DNN could be restructured and trained on different data, the window could be adapted to display other data of interest, and the data tool could gather data from other databases. However, since this project largely takes advantage of other APIs, that code could be created fairly easily directly for it's desired application, so reuse is unlikely.
 
 # Change Strategy
