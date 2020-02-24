@@ -1,5 +1,6 @@
 import DataDandler
 import import numpy as np
+import datetime
 
 class test_DataHandler:
     DHandler = DataHandler()
@@ -10,6 +11,13 @@ class test_DataHandler:
         if DHandler.tickers[0] == None:
             result = False
         assert result == True
+
+    def test_setTimeframe():
+        start = datetime.datetime(1980,1,1)
+        end = datetime.datetime.now()
+        DHandler.setTimeframe(start,end)
+        assert DHandler.start == start && DHandler.end == end
+        
 
     def test1_GenYahDataFrame():
         testTicker = 'MMM'

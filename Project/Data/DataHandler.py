@@ -24,6 +24,11 @@ class DataHandler:
     def __init__(self):
         self.exportTickers()
 
+    def setTimeframe(start,end):
+        if type(start) is datetime and type(end) is datetime:
+            self.start = start
+            self.end = end
+
     def readTickers():
         with open('TargetTickers.csv') as csvDataFile:
             csvReader = csv.reader(csvDataFile)
