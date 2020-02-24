@@ -14,7 +14,19 @@ We still need some sort of diagram relating these. More than the state diagram.
 
 ## Level 1
 
-![Level 1](C4_Zoltar_L1.pdf)
+![Level 1](C4_Zoltar_L1.jpg)
+
+## Level 2
+
+![Level 1](C4_Zoltar_L2.jpg)
+
+## Level 3
+
+![Level 1](C4_Zoltar_L3.jpg)
+
+## Level 4
+
+![Level 1](C4_Zoltar_L4.jpg)
 
 ![StateDiagram](State_Diagram.jpg)
 
@@ -32,7 +44,7 @@ We still need some sort of diagram relating these. More than the state diagram.
 
 - Grapher: This is behind the window and provides a module for graphing functionality.
 
-![ClassDiagram](Class_Diagram.jpg)
+![ClassDiagram](UML_Class_Diagram.jpg)
 
 # Data Design
 
@@ -49,6 +61,8 @@ The API's that Zoltar is built off of are free and open source when used for non
 <!---You should have one or more user interface screens in this section. Each screen should be accompanied by an explaination of the screens purpose and how the user will interact with it. You should relate each screen to one another as the user transitions through the states of your application. You should also have a table that relates each window or component to the support using stories.--->
 
 ![UIDesign](UI_Mock.png)
+
+![UIFlow](UI_Flow.jpeg)
 
 # Resource Management
 
