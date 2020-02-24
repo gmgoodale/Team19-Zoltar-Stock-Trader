@@ -11,6 +11,7 @@ import pandas_datareader.data as web
 import csv
 import pymysql
 from sqlalchemy import create_engine
+import import numpy as np
 
 class Datahandler:
     engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
@@ -47,6 +48,22 @@ class Datahandler:
             print(ex)
         else:
             print('Exported ' + t + ' data to SQL')
+
+    def toNumpy(endDate,dayInterval,ticker):
+        df = GenYahDataFrame(ticker)
+        df = TrimDataFrame(df)
+        numpyRows = len(df)/dayInterval
+        np = numpy.zeroes(shape(numpyRows, 2))
+        numpyIndex = 0
+        intervalTracker = 0
+        for row in df[:endDate]:
+            intervalTracker += 1
+            if intervalTracker % dayInterval == 0:
+                np[numpyIndex] = df.loc[start:row].values
+                numpyindex += 1
+            if numpyIndex == numpyRows - 1:
+                break
+        return np
 
     def unitTests():
         for t in tickers[:numberOfTickers]:
