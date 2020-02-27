@@ -7,7 +7,7 @@ from numpy.random import randint
 
 class Grapher:
     def __init__(self):
-        self.unitTests()
+        filename = ''
 
     def generateGraph(self, predictionFileName, stockName = "Stock Data"):
         # 'usecols' can be added to read_csv if multiple cols are present in file
@@ -15,25 +15,45 @@ class Grapher:
             plotData = pandas.read_csv(predictionFileName)
 
         except:
-            print("Error reading csv file while generating graph; aborting.")
-            return
+            print("ERROR: when reading csv file while generating graph; aborting.")
+            return False
 
-        fig, graph = plt.subplots()
-        graph.plot('Time (Days)', 'Price (USD)', data = plotData)
-        graph.set(title = stockName)
-        graph.grid()
-        fig.savefig(stockName + " Graph.png")
-        plt.show()
+        if self.checkNumbers(plotData):
+            fig, graph = plt.subplots()
+            graph.plot('Time (Days)', 'Price (USD)', data = plotData)
+            graph.set(title = stockName)
+            graph.grid()
+            fig.savefig(stockName + " Graph.png")
+            plt.show()
+
+        else:
+            print("ERROR:  Data contains negative numbers")
+            return False
 
 
-    def unitTests(self):
+        def checkNumbers(self, data):
+            for col in data.columns:
+                if data[col].min < 0:
+                    return False
+
+class GrapherTester:
+    def __init__(self):
+        subject = Grapher()
+        testFileName = 'TestData.csv'
+        testStockName = 'Test Stock'
+        testGenerateGraphWithAllPositiveNumbers(testFileName, testStockName)
+
+    def createTestData(xAxis, yAxis):
         # Generates a graph with random Data
-        plotData = pandas.DataFrame({'Time (Days)' : range(1, 101), 'Price (USD)': numpy.random.randint(1, 50, 100) })
-        plotData.to_csv("TestData.csv")
-        try:
-            self.generateGraph("TestData.csv", stockName = "Test Data")
+        plotData = {'X-Axis':xAxis, 'Y-Axis':yAxis}
+        dataFrame = pandas.DataFrame(plotData)
+        return dataFrame
 
-        except:
-            print("FAIL:  generateGraph")
+    def testGenerateGraphWithAllPositiveNumbers(self, testFileName, stockName):
+        dataFrame = self.createTestData([0, 1, 2, 3, 4], [3, 5, 1, 2, 6])
+        subject.generateGraph(predictionFileName = "TestData.csv")
+        assert os.path.exists(self.testStockName + " Graph.png")
 
-test = Graph()
+    def testGenerateGraphWithSomeBadNumbers(self, testFileName, stockName):
+        dataFrame = self.createTestData([0, 1, 2, 3, 4], [3, 5, -1, 2, 6])
+        assert subject.generateGraph(testFileName, dataFrame) == False

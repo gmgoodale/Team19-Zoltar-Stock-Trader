@@ -24,10 +24,3 @@ class UserInterface:
 
         btn = Button(window, text = "THIS BUTTON DOES NOTHING", command = response)
         btn.grid(column = 2, row = 2)
-
-# Test Case to create a new window: passed if the window displays on screen
-def uiTest():
-    testCase = UserInterface()
-    testCase.new_window()
-
-uiTest()
