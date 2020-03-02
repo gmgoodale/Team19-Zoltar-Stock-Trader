@@ -3,7 +3,7 @@
 ## Garett Goodale
 
 ### This Week
-This week I updated all of the documentation that destroyed our grade in Sprint 3 including: C4 diagrams, updated class diagram, GUI diagram, requirements, design document section descriptions, responsibilities, updated burndown, updated velocity and demo. I also got the DNN to take in real market data.
+This week I worked on improving the DNN and tried to get the GUI too look more real.
 
 ### Previous Weeks
 I setup the framework for the DNN and built out the documentation.
