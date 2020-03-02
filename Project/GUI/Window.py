@@ -1,9 +1,46 @@
 #!/usr/bin/python
+import importLib
+import Window
 
 from tkinter import *
 
 # Class containing the high level calls required to run a UI
 class UserInterface:
+
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
+
+        tk.Tk.iconbitmap(self, default = "clienticon.ico")
+        tk.Tk.wm_title(self, "Zoltar")
+
+        container = tk.Frame(self)
+        container.pack(side = "top", fill = "both", expand = True)
+        container.grid_rowconfigure(0, weight = 1)
+        container.grid_columnconfigure(0, weight = 1)
+
+        self.frames = {}
+
+        for F in (GrapherWindow):
+            frame = F(container, self)
+
+            self.frames[F] = frame
+
+            frame.grid(row = 0, column = 0, sticky = "nsew")
+
+        self.show_frame(GrapherWindow)
+
+    # Attempts to show a frame given a container 'cont'
+    # Success returns 0, failure returns -1
+    def show_frame(self, cont):
+        try:
+            frame = self.frames[cont]
+
+        except:
+            return -1
+
+        frame.tkraise()
+        return 0
+
     # Creates a new window of the Zoltar application on the menu screen
     def new_window(self):
         window = Tk()

@@ -1,13 +1,26 @@
 import matplotlib
+matplotlib.use("TkAgg") # Allows for Tk use rather than the standard
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
+
 import numpy
 import seaborn
 import pandas
 from numpy.random import randint
 
-class Grapher:
-    def __init__(self):
+import tkinter as tk
+from tkinter import tkk
+
+LARGE_FONT = ("Verdana", 12)
+
+class GrapherWindow:
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.label(self, text = "Graph Page", font = LARGE_FONT)
+        label.pack(pady = 10, padx = 10)
         filename = ''
+
 
     def generateGraph(self, predictionFileName, stockName = "Stock Data"):
         # 'usecols' can be added to read_csv if multiple cols are present in file
@@ -19,12 +32,25 @@ class Grapher:
             return False
 
         if self.checkNumbers(plotData):
-            fig, graph = plt.subplots()
+            # Much of this code is based on the work found at
+            # https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
+            figure = Figure(figsize = (5, 5), dpi = 100)
+            graph = figure.add_subplot(111)
             graph.plot('Time (Days)', 'Price (USD)', data = plotData)
             graph.set(title = stockName)
             graph.grid()
-            fig.savefig(stockName + " Graph.png")
-            plt.show()
+
+            canvas = FigureCanvasTkAgg(figure, self)
+            canvas.show()
+            canvas.get_tk_widget().pack(side = tk.BOTTOM, fill = tk.BOTH, expand = True)
+
+            toolbar = NavigationToolbar2TkAgg(canvas, self)
+            toolbar.update()
+            canvas._tkcanvas.pack(side = tk.TOP, fill = tk.BOTH, expand = True)
+
+            saveButton = ttk.Button(self, text = "Save Graph",
+                                    command = fig.savefig(stockName + " Graph.png")
+            saveButton.pack()
 
         else:
             print("ERROR:  Data contains negative numbers")
