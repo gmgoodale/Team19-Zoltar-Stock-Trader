@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import importLib
+import importlib
 import Window
 
 from tkinter import *
@@ -42,7 +42,7 @@ class UserInterface:
         return 0
 
     # Creates a new window of the Zoltar application on the menu screen
-    def new_window(self):
+    def newWindow(self):
         window = Tk()
         window.title("ZOLTAR")
         window.geometry('800x400')
@@ -61,3 +61,17 @@ class UserInterface:
 
         btn = Button(window, text = "THIS BUTTON DOES NOTHING", command = response)
         btn.grid(column = 2, row = 2)
+
+
+class UserInterfaceTester:
+
+    def __init__(self):
+        subject = UserInterface()
+        self.runTestBattery()
+
+    def runTestBattery(self):
+        self.test_newWindow()
+
+    def test_newWindow(self):
+        subject.newWindow()
+        
