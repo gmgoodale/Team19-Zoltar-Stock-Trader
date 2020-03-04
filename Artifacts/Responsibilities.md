@@ -3,7 +3,7 @@
 ## Garett Goodale
 
 ### This Week
-This week I worked on improving the DNN and tried to get the GUI too look more real.
+I will get the DataHandler and the model framework to interface directly. I will also start to modify the structure of the DNN to improve performance.
 
 ### Previous Weeks
 I setup the framework for the DNN and built out the documentation.
@@ -19,7 +19,7 @@ I setup the framework for the DataHandler, researched stocks of interest for the
 ## James (Anton) Strickland
 
 ### This Week
-I drastically increased the functionality of the GUI and added unit tests to test the windows. I updated the requirements and made a demo video.
+I focused on expanding testing for the GUI; specifically button pressing, error handling, and timing UI hangs
 
 ### Previous Weeks
-I setup the framework for the GUI and created a flow chart to describe the flow of Zoltar.
+Expanded the UI to use containers and frames to expand scalability (which promptly broke nearly all tests)
