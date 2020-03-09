@@ -1,6 +1,8 @@
-# Test Case to create a new window: passed if the window displays on screen
-def DNN():
-    testCase = DNN()
-    testCase.new_DNN()
+import DataDandler
+import import numpy as np
+import datetime
 
-DNNTest()
+class test_Model:
+    md = Model()
+
+    def test_readTickers():

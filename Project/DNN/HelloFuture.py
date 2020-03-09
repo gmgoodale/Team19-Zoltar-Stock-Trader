@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 import os
+import datetime
 import numpy as np
 import DataHandler
 import tensorflow as tf
@@ -15,11 +16,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 class Model:
 
     def __init__(self):
-        self.trainingData = tf.placeholder()
-        self.trainingLabels = []
-        self.testData = []
-        self.testLabels =[]
-        self.model = Sequential()
+        self.dh = DataHandler.Datahandler();
 
     def createDummyData(self, setSize, numSets):
         self.trainingData = np.random.random((1000, 20))
@@ -27,16 +24,35 @@ class Model:
         self.testData = np.random.random((100, 20))
         self.testLabels = np.random.randint(2, size=(100, 1))
 
-    def realData(self, setSize, numSets):
-        print("this does nothing")
+    def realData(self, setSize):
+        end = datetime.datetime.now()
+        allData = self.dh.toNumpy(end, setSize, 'AOS')
+        numSets = np.size(allData,0)
 
-    def createModel(self):
-        model = Sequential()
-        model.add(Dense(64, input_dim=20, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(64, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(1, activation='sigmoid'))
+        # Cut the set in half to create training data
+        self.trainingData = np.copy(allData[:int(numSets/2),setSize-1])
+        self.trainingLabels = np.zeros([int(numSets/2), 1])
+        for i in range(0, int(numSets/2)):
+            if (self.trainingData[i][0] < self.trainingData[i][setSize-1]):
+                self.trainingLabels[i][0] = 1
+            else: self.trainingLabels[i][0] = 0
+
+        # Cut the set in half to create test data
+        self.testData = np.copy(allData[int(numSets/2)+1:,setSize-1])
+        self.testLabels = np.zeros([int(numSets/2), 1])
+        for i in range(0, int(numSets/2)):
+            if (self.testData[i][0] < self.testData[i][setSize-1]):
+                self.testLabels[i][0] = 1
+            else: self.testLabels[i][0] = 0
+
+
+    def createModel(self, inputDim):
+        self.model = Sequential()
+        self.model.add(Dense(64, input_dim=inputDim, activation='relu'))
+        self.model.add(Dropout(0.5))
+        self.model.add(Dense(64, activation='relu'))
+        self.model.add(Dropout(0.5))
+        self.model.add(Dense(1, activation='sigmoid'))
 
     def compileModel(self):
         self.model.compile(loss='binary_crossentropy',
@@ -52,8 +68,8 @@ class Model:
         score = self.model.evaluate(self.testData, self.testLabels, batch_size=128)
 
     def main(self):
-        self.createDummyData(1000, 20)
-        self.createModel()
+        self.createDummyData(20,1)
+        self.createModel(20)
         self.compileModel()
         self.trainModel()
         self.evalModel()
