@@ -4,7 +4,7 @@ import Window
 
 from tkinter import *
 
-# Class containing the high level calls required to run a UI
+# Base of the user interface; calls pages to be used from frames.
 class UserInterface:
 
     def __init__(self, *args, **kwargs):
@@ -27,7 +27,7 @@ class UserInterface:
 
             frame.grid(row = 0, column = 0, sticky = "nsew")
 
-        self.show_frame(GrapherWindow)
+        self.show_frame(StartPage, GrapherWindow)
 
     # Attempts to show a frame given a container 'cont'
     # Success returns 0, failure returns -1
@@ -41,37 +41,25 @@ class UserInterface:
         frame.tkraise()
         return 0
 
-    # Creates a new window of the Zoltar application on the menu screen
-    def newWindow(self):
-        window = Tk()
-        window.title("ZOLTAR")
-        window.geometry('800x400')
+class StartPage(tk.Frame):
 
-        self.drawMenu(window)
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self,parent)
+        label = tk.Label(self, text="Zoltar Stock Trader Main Page", font=LARGE_FONT)
+        label.pack(pady=10,padx=10)
 
-        window.mainloop()
+        grapherButton = ttk.Button(self, text = "grapher",
+                            command=lambda: controller.show_frame(PageOne))
+        grapherButton.pack()
 
-    # Draws the initial menu on screen
-    def drawMenu(self, window):
-        lbl = Label(window, text = "ZOLTAR: TELLER AND BRINGER OF FORTUNES!!")
-        lbl.grid(column = 0, row = 1)
+        makeNewModelButton = ttk.Button(self, text="Visit Page 2",
+                            command=lambda: controller.show_frame(PageTwo))
+        makeNewModelButton.pack()
 
-        def response():
-            lbl.configure(text = "HA. ZOLTAR HAS FOOLED YOU!")
+        loadExistingModelButton = ttk.Button(self, text="Graph Page",
+                            command=lambda: controller.show_frame(PageThree))
+        loadExistingModelButton.pack()
 
-        btn = Button(window, text = "THIS BUTTON DOES NOTHING", command = response)
-        btn.grid(column = 2, row = 2)
-
-
-class UserInterfaceTester:
-
-    def __init__(self):
-        subject = UserInterface()
-        self.runTestBattery()
-
-    def runTestBattery(self):
-        self.test_newWindow()
-
-    def test_newWindow(self):
-        subject.newWindow()
-        
+# When Window.py is run then it is assumed the program should run.
+zoltar = UserInterface()
+zoltar.mainloop()
