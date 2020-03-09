@@ -17,7 +17,7 @@ class test_DataHandler:
         end = datetime.datetime.now()
         DHandler.setTimeframe(start,end)
         assert DHandler.start == start && DHandler.end == end
-        
+
 
     def test1_GenYahDataFrame():
         testTicker = 'MMM'
@@ -56,3 +56,9 @@ class test_DataHandler:
     def test_exportTickers():
         result = DHandler.exportTickers()
         assert result == 'Tickers Succesfully Exported';
+
+    def test_csvExport():
+        DHandler.GenYahDataFrame('MMM')
+        TrimDataFrame()
+        result = DHandler.csvExport()
+        assert result == 'Exported MMM data to CSV file';
