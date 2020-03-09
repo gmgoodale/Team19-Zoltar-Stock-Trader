@@ -11,9 +11,11 @@ I setup the framework for the DNN and built out the documentation.
 ## Kyle Sizemore
 
 ### This Week
-I created functionality to allow the DataHandler to pass Numpy data directly to the DNN and setup unit tests for the DataHandler. I also updated the requirements section, created a new sequence diagram and created a Demo video.
+I opened up a noSQL server with amazon so that we can host zoltar's database online and create an executable later on without the hassle of moving a local sql database. 
 
 ### Previous Weeks
+I created functionality to allow the DataHandler to pass Numpy data directly to the DNN and setup unit tests for the DataHandler. I also updated the requirements section, created a new sequence diagram and created a Demo video.
+
 I setup the framework for the DataHandler, researched stocks of interest for the DNN and created a flow chart to describe the flow of Zoltar.
 
 ## James (Anton) Strickland
