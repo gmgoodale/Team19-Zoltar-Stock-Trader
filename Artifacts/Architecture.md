@@ -87,9 +87,9 @@ The API's that Zoltar is built off of are free and open source when used for non
 
 This just gives a very basic idea of what the Zoltar window will look like.
 
-![UIDesign1](Main_Page_Mock.png)
-![UIDesign2](Load_Model_Mock.png)
-![UIDesign1](Train_New_Model_Mock.png)
+![UIDesign1](Main_Page_Mock.PNG)
+![UIDesign2](Load_Model_Mock.PNG)
+![UIDesign3](Train_New_Model_Mock.PNG)
 
 The diagram below shows the flow of the UI. As the user clicks different buttons, new frames within the window will pop up allowing the user to select the relevant option.
 
