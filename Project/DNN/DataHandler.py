@@ -13,30 +13,33 @@ import pymysql
 from sqlalchemy import create_engine
 import numpy as np
 
-class Datahandler:
-    engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
-    start = datetime.datetime(1980,1,1)
-    end = datetime.datetime.now()
-    tickers = []
-    numberOfTickers = 15
+class Datahandler():
 
     def __init__(self):
-        self.unitTests()
+        self.engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
+        self.start = datetime.datetime(1980,1,1)
+        self.end = datetime.datetime.now()
+        self.tickers = []
+        self.numberOfTickers = 15
+
     def readTickers():
         with open('TargetTickers.csv') as csvDataFile:
             csvReader = csv.reader(csvDataFile)
         for row in csvReader:
             tickers.append(row[0])
 
-    def GenYahDataFrame(t):
+    def GenYahDataFrame(self, t):
+        df = web.DataReader(t, 'yahoo',self.start,self.end)
+        return df
+        '''
         try:
             df = web.DataReader(t, 'yahoo',start,end)
             return df
         except:
             print('Bad ticker: ' + t)
-            return None
+            return None'''
 
-    def TrimDataFrame(df):
+    def TrimDataFrame(self, df):
         return df.drop(columns = ['High','Low','Volume','Adj Close'])
 
     def sqlExport(df, t):
@@ -49,29 +52,26 @@ class Datahandler:
         else:
             print('Exported ' + t + ' data to SQL')
 
-    def toNumpy(endDate,dayInterval,ticker):
-        df = GenYahDataFrame(ticker)
-        df = TrimDataFrame(df)
-        numpyRows = len(df)/dayInterval
-        np = numpy.zeroes(shape(numpyRows, 2))
-        numpyIndex = 0
-        intervalTracker = 0
-        for row in df[:endDate]:
-            intervalTracker += 1
-            if intervalTracker % dayInterval == 0:
-                np[numpyIndex] = df.loc[start:row].values
-                numpyindex += 1
-            if numpyIndex == numpyRows - 1:
-                break
-        return np
+    def toNumpy(self, endDate, dayInterval, ticker):
+        df = self.GenYahDataFrame(ticker)
+        df = self.TrimDataFrame(df)
 
-    def unitTests():
-        for t in tickers[:numberOfTickers]:
-            df = GenYahDataFrame(t)
-            if df != None:
-                df = TrimDataFrame(df)
-                sqlExport(df, t)
-        print('Tickers Succesfully Exported')
+        arr = df.to_numpy()
 
-    def main():
-        numpyarray = toNumpy()
+        numRows = int(np.size(arr,0)/dayInterval)
+        outputArr = np.zeros([numRows, dayInterval])
+
+        for i in range(numRows):
+            outputArr[i] = np.copy(arr[i*100:((i+1)*100), 1])
+
+        return outputArr
+
+    def main(self):
+        end = datetime.datetime.now()
+        numpyarray = self.toNumpy(end, 100, 'AOS')
+        print(numpyarray)
+        print("Size: " + str(np.size(numpyarray)))
+
+if __name__== "__main__":
+    dh = Datahandler()
+    dh.main()
