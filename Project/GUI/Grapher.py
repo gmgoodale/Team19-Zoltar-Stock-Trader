@@ -20,7 +20,9 @@ class GrapherWindow:
         label = tk.label(self, text = "Graph Page", font = LARGE_FONT)
         label.pack(pady = 10, padx = 10)
         filename = ''
-
+        homeButton = ttk.Button(self, text = "Back to Home",
+                                command = lamda: controller.show_frame(StartPage))
+        homeButton.pack()
 
     def generateGraph(self, predictionFileName, stockName = "Stock Data"):
         # 'usecols' can be added to read_csv if multiple cols are present in file
