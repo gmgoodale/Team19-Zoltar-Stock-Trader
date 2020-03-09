@@ -77,5 +77,10 @@ class DataHandler:
             GenYahDataFrame(t)
             if df != None:
                 TrimDataFrame(df)
-                sqlExport(df, t)
+                cveExport(df,t)
         return('Tickers Succesfully Exported')
+
+    def csvExport(dFrame,ticker):
+        timeInterval = start + 'to' + end
+        df.to_csv('Tickers/'+ ticker + '_PriceData_' + timeInterval)
+        return ('Exported ' + ticker + ' data to CSV file')
