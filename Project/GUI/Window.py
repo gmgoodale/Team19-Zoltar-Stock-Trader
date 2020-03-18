@@ -1,16 +1,19 @@
 #!/usr/bin/python
 import importlib
-import Window
+import Grapher
 
-from tkinter import *
+import tkinter as tk
+from tkinter import ttk
+
+LARGE_FONT = ("Verdana", 12)
 
 # Base of the user interface; calls pages to be used from frames.
-class UserInterface:
+class UserInterface(tk.Tk):
 
     def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
-        tk.Tk.iconbitmap(self, default = "clienticon.ico")
+        tk.Tk.iconbitmap(self, default = "Zoltar_Icon.ico")
         tk.Tk.wm_title(self, "Zoltar")
 
         container = tk.Frame(self)
@@ -20,14 +23,14 @@ class UserInterface:
 
         self.frames = {}
 
-        for F in (GrapherWindow):
+        for F in (StartPage, Grapher.GrapherWindow):
             frame = F(container, self)
 
             self.frames[F] = frame
 
             frame.grid(row = 0, column = 0, sticky = "nsew")
 
-        self.show_frame(StartPage, GrapherWindow)
+        self.show_frame(StartPage)
 
     # Attempts to show a frame given a container 'cont'
     # Success returns 0, failure returns -1
@@ -48,16 +51,16 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Zoltar Stock Trader Main Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
 
-        grapherButton = ttk.Button(self, text = "grapher",
-                            command=lambda: controller.show_frame(PageOne))
+        grapherButton = ttk.Button(self, text = "Grapher",
+                            command = controller.show_frame("GrapherWindow"))
         grapherButton.pack()
 
         makeNewModelButton = ttk.Button(self, text="Visit Page 2",
-                            command=lambda: controller.show_frame(PageTwo))
+                            command = controller.show_frame("PageTwo"))
         makeNewModelButton.pack()
 
         loadExistingModelButton = ttk.Button(self, text="Graph Page",
-                            command=lambda: controller.show_frame(PageThree))
+                            command = controller.show_frame("PageThree"))
         loadExistingModelButton.pack()
 
 # When Window.py is run then it is assumed the program should run.
