@@ -3,7 +3,7 @@
 ## Garett Goodale [GitHub: gmgoodale]
 
 ### This Week
-I will get the DataHandler and the model framework to interface directly. I will also start to modify the structure of the DNN to improve performance.
+I got the DataHandler and the model framework to interface directly. I started to modify the DNN to improve performance and I created the code to be able to modify the time horizon, ticker, epochs, layers, etc. to give a very flexible framework. 
 
 ### Previous Weeks
 I setup the framework for the DNN and built out the documentation.
