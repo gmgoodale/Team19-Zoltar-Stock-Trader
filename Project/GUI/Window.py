@@ -55,7 +55,7 @@ class StartPage(tk.Frame):
                             command = controller.show_frame("GrapherWindow"))
         grapherButton.pack()
 
-        makeNewModelButton = ttk.Button(self, text="Visit Page 2",
+        makeNewModelButton = ttk.Button(self, text="Settings",
                             command = controller.show_frame("PageTwo"))
         makeNewModelButton.pack()
 
