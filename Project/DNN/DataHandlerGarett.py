@@ -13,7 +13,7 @@ import pymysql
 from sqlalchemy import create_engine
 import numpy as np
 
-class Datahandler():
+class DataHandler():
 
     def __init__(self):
         self.engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
@@ -29,15 +29,12 @@ class Datahandler():
             tickers.append(row[0])
 
     def GenYahDataFrame(self, t):
-        df = web.DataReader(t, 'yahoo',self.start,self.end)
-        return df
-        '''
         try:
-            df = web.DataReader(t, 'yahoo',start,end)
+            df = web.DataReader(t, 'yahoo',self.start,self.end)
             return df
         except:
             print('Bad ticker: ' + t)
-            return None'''
+            return None
 
     def TrimDataFrame(self, df):
         return df.drop(columns = ['High','Low','Volume','Adj Close'])
@@ -67,9 +64,22 @@ class Datahandler():
         outputArr = np.zeros([numRows, dayInterval])
 
         for i in range(numRows):
-            outputArr[i] = np.copy(arr[i*100:((i+1)*100), 1])
+            outputArr[i] = np.copy(arr[i*dayInterval:((i+1)*dayInterval), 1])
 
         return outputArr
+
+    def exportTickers():
+        for t in tickers[:numberOfTickers]:
+            GenYahDataFrame(t)
+            if df != None:
+                TrimDataFrame(df)
+                cveExport(df,t)
+        return('Tickers Succesfully Exported')
+
+    def csvExport(dFrame,ticker):
+        timeInterval = start + 'to' + end
+        df.to_csv('Tickers/'+ ticker + '_PriceData_' + timeInterval)
+        return ('Exported ' + ticker + ' data to CSV file')
 
     def main(self):
         end = datetime.datetime.now()

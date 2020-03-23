@@ -16,7 +16,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 class Model:
 
     def __init__(self):
-        self.dh = DataHandler.Datahandler();
+        self.dh = DataHandler.DataHandler();
 
     def createDummyData(self, setSize, numSets):
         self.trainingData = np.random.random((numSets, setSize))
@@ -62,6 +62,8 @@ class Model:
         self.model.add(Dropout(0.5))
         self.model.add(Dense(64, activation='relu'))
         self.model.add(Dropout(0.5))
+        self.model.add(Dense(64, activation='relu'))
+        self.model.add(Dropout(0.5))
         self.model.add(Dense(1, activation='sigmoid'))
 
     def compileModel(self):
@@ -78,10 +80,11 @@ class Model:
         score = self.model.evaluate(self.testData, self.testLabels, batch_size=128)
 
     def main(self):
-        self.realData(100, 'AOS')
-        self.createModel(100)
+        numDays = 100
+        self.realData(numDays, 'GOOG')
+        self.createModel(numDays)
         self.compileModel()
-        self.trainModel(20)
+        self.trainModel(100)
         self.evalModel()
 
 if __name__== "__main__":
