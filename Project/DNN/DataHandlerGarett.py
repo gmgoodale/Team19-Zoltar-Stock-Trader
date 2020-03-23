@@ -52,6 +52,11 @@ class Datahandler():
         else:
             print('Exported ' + t + ' data to SQL')
 
+    # This takes the data frame and creates a numpy array. The numpy array is
+    # 2-D with the number of rows being the datapoints/dayInterval and the row
+    # width being the dayIntercal. EX: toNumpy(currentDate, 100, AOS) returns
+    # a numpy array of size (91, 100) because it has at least 9100 days of
+    # history and 100 is the interval of interest
     def toNumpy(self, endDate, dayInterval, ticker):
         df = self.GenYahDataFrame(ticker)
         df = self.TrimDataFrame(df)
