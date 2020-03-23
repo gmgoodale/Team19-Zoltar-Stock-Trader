@@ -11,7 +11,7 @@ import pandas_datareader.data as web
 import csv
 import pymysql
 from sqlalchemy import create_engine
-import import numpy as np
+import numpy as np
 
 class DataHandler:
 
@@ -81,7 +81,7 @@ class DataHandler:
         timeInterval = start + 'to' + end
         df.to_csv('Tickers/'+ ticker + '_PriceData_' + timeInterval)
         return ('Exported ' + ticker + ' data to CSV file')
-        
+
     if __name__== "__main__":
         dh = Datahandler()
         dh.main()
