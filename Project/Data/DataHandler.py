@@ -14,15 +14,14 @@ from sqlalchemy import create_engine
 import import numpy as np
 
 class DataHandler:
-    engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
-    start = datetime.datetime(1980,1,1)
-    end = datetime.datetime.now()
-    tickers = []
-    numberOfTickers = 15
-    df = pd.DataFrame()
 
     def __init__(self):
-        self.exportTickers()
+            self.engine = create_engine('mysql+pymysql://root:pass@127.0.0.1:3306/zoltarpricedata')
+            self.start = datetime.datetime(1980,1,1)
+            self.end = datetime.datetime.now()
+            self.tickers = []
+            self.numberOfTickers = 15
+            self.df = pd.DataFrame()
 
     def setTimeframe(start,end):
         if type(start) is datetime and type(end) is datetime:
@@ -82,3 +81,7 @@ class DataHandler:
         timeInterval = start + 'to' + end
         df.to_csv('Tickers/'+ ticker + '_PriceData_' + timeInterval)
         return ('Exported ' + ticker + ' data to CSV file')
+        
+    if __name__== "__main__":
+        dh = Datahandler()
+        dh.main()
