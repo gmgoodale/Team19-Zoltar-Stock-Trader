@@ -2,7 +2,7 @@
 #2/7/2020
 
 # pull historical data from the market for backtesting purposes and output to a
-# csv file on our mySQL database
+# csv file in our repository
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import datetime
@@ -56,21 +56,19 @@ class DataHandler:
         else:
             return ('Exported ' + t + ' data to SQL')
 
-    def toNumpy(endDate,dayInterval,ticker):
-        GenYahDataFrame(ticker)
-        TrimDataFrame(df)
-        numpyRows = len(df)/dayInterval
-        np = numpy.zeroes(shape(numpyRows, 2))
-        numpyIndex = 0
-        intervalTracker = 0
-        for row in df[:endDate]:
-            intervalTracker += 1
-            if intervalTracker % dayInterval == 0:
-                np[numpyIndex] = df.loc[start:row].values
-                numpyindex += 1
-            if numpyIndex == numpyRows - 1:
-                break
-        return np
+    def toNumpy(self, endDate, dayInterval, ticker):
+        df = self.GenYahDataFrame(ticker)
+        df = self.TrimDataFrame(df)
+
+        arr = df.to_numpy()
+
+        numRows = int(np.size(arr,0)/dayInterval)
+        outputArr = np.zeros([numRows, dayInterval])
+
+        for i in range(numRows):
+            outputArr[i] = np.copy(arr[i*100:((i+1)*100), 1])
+
+        return outputArr
 
     def exportTickers():
         for t in tickers[:numberOfTickers]:
