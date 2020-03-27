@@ -23,7 +23,7 @@ class GrapherWindow(tk.Frame):
         label.pack(pady = 10, padx = 10)
         filename = ''
         homeButton = ttk.Button(self, text = "Back to Home",
-                                command = lambda: controller.show_frame(StartPage))
+                                command = lambda: controller.returnToHome())
         homeButton.pack()
 
     def generateGraph(self, predictionFileName, stockName = "Stock Data"):

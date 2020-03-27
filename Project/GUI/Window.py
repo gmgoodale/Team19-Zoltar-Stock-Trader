@@ -30,11 +30,11 @@ class UserInterface(tk.Tk):
 
             frame.grid(row = 0, column = 0, sticky = "nsew")
 
-        self.show_frame(StartPage)
+        self.showFrame(StartPage)
 
     # Attempts to show a frame given a container 'cont'
     # Success returns 0, failure returns -1
-    def show_frame(self, cont):
+    def showFrame(self, cont):
         try:
             frame = self.frames[cont]
 
@@ -44,6 +44,9 @@ class UserInterface(tk.Tk):
         frame.tkraise()
         return 0
 
+    def returnToHome(self):
+        self.showFrame(StartPage)
+
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -52,16 +55,16 @@ class StartPage(tk.Frame):
         label.pack(pady=10,padx=10)
 
         grapherButton = ttk.Button(self, text = "Grapher",
-                            command = controller.show_frame("GrapherWindow"))
+                            command = lambda: controller.showFrame(Grapher.GrapherWindow))
         grapherButton.pack()
+# TODO Settings and Graph Page
+#        makeNewModelButton = ttk.Button(self, text="Settings",
+#                            command = lambda: controller.showFrame())
+#        makeNewModelButton.pack()
 
-        makeNewModelButton = ttk.Button(self, text="Settings",
-                            command = controller.show_frame("PageTwo"))
-        makeNewModelButton.pack()
-
-        loadExistingModelButton = ttk.Button(self, text="Graph Page",
-                            command = controller.show_frame("PageThree"))
-        loadExistingModelButton.pack()
+#        loadExistingModelButton = ttk.Button(self, text="Graph Page",
+#                            command = lambda: controller.showFrame())
+#        loadExistingModelButton.pack()
 
 # When Window.py is run then it is assumed the program should run.
 zoltar = UserInterface()
