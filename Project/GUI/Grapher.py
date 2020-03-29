@@ -22,9 +22,15 @@ class GrapherWindow(tk.Frame):
         label = tk.Label(self, text = "Graph Page", font = LARGE_FONT)
         label.pack(pady = 10, padx = 10)
         filename = ''
+
         homeButton = ttk.Button(self, text = "Back to Home",
                                 command = lambda: controller.returnToHome())
         homeButton.pack()
+
+        graphButton = ttk.Button(self, text = "Generate Graph",
+
+                                 command = self.generateGraph(predictionFileName = "TestData.csv"))
+        graphButton.pack()
 
     def generateGraph(self, predictionFileName, stockName = "Stock Data"):
         # 'usecols' can be added to read_csv if multiple cols are present in file
@@ -40,20 +46,20 @@ class GrapherWindow(tk.Frame):
             # https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
             figure = Figure(figsize = (5, 5), dpi = 100)
             graph = figure.add_subplot(111)
-            graph.plot('Time (Days)', 'Price (USD)', data = plotData)
+            graph.plot(xlabel = 'Time (Days)', ylabel = 'Price (USD)', data = plotData)
             graph.set(title = stockName)
             graph.grid()
 
             canvas = FigureCanvasTkAgg(figure, self)
-            canvas.show()
+            canvas.draw()
             canvas.get_tk_widget().pack(side = tk.BOTTOM, fill = tk.BOTH, expand = True)
 
-            toolbar = NavigationToolbar2TkAgg(canvas, self)
+            toolbar = NavigationToolbar2Tk(canvas, self)
             toolbar.update()
             canvas._tkcanvas.pack(side = tk.TOP, fill = tk.BOTH, expand = True)
 
             saveButton = ttk.Button(self, text = "Save Graph",
-                                    command = fig.savefig(stockName + " Graph.png"))
+                                    command = figure.savefig(stockName + " Graph.png"))
             saveButton.pack()
 
         else:
@@ -61,7 +67,8 @@ class GrapherWindow(tk.Frame):
             return False
 
 
-        def checkNumbers(self, data):
-            for col in data.columns:
-                if data[col].min < 0:
-                    return False
+    def checkNumbers(self, data):
+        for col in data.columns:
+            if min(data[col]) < 0:
+                return False
+        return True
