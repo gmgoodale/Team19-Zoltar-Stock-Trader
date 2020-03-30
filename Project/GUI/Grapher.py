@@ -16,6 +16,9 @@ from tkinter import ttk
 
 LARGE_FONT = ("Verdana", 12)
 
+figure = plt.figure()
+graphArea = figure.add_subplot(111)
+
 class GrapherWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -44,11 +47,9 @@ class GrapherWindow(tk.Frame):
         if self.checkNumbers(plotData):
             # Much of this code is based on the work found at
             # https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
-            figure = Figure(figsize = (5, 5), dpi = 100)
-            graph = figure.add_subplot(111)
-            graph.plot(xlabel = 'Time (Days)', ylabel = 'Price (USD)', data = plotData)
-            graph.set(title = stockName)
-            graph.grid()
+            graphArea.plot(xlabel = 'Time (Days)', ylabel = 'Price (USD)', data = plotData)
+            graphArea.set(title = stockName)
+            graphArea.grid()
 
             canvas = FigureCanvasTkAgg(figure, self)
             canvas.draw()
@@ -57,10 +58,6 @@ class GrapherWindow(tk.Frame):
             toolbar = NavigationToolbar2Tk(canvas, self)
             toolbar.update()
             canvas._tkcanvas.pack(side = tk.TOP, fill = tk.BOTH, expand = True)
-
-            saveButton = ttk.Button(self, text = "Save Graph",
-                                    command = figure.savefig(stockName + " Graph.png"))
-            saveButton.pack()
 
         else:
             print("ERROR:  Data contains negative numbers")
