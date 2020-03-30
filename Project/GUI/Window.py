@@ -47,7 +47,7 @@ class UserInterface(tk.Tk):
     def returnToHome(self):
         self.showFrame(StartPage)
 
-class StartPage(tk.Frame):
+class MainPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
@@ -67,6 +67,8 @@ class StartPage(tk.Frame):
 #        loadExistingModelButton.pack()
 
 # When Window.py is run then it is assumed the program should run.
+
+
 zoltar = UserInterface()
 zoltar.geometry("1280x720")
 zoltar.mainloop()
