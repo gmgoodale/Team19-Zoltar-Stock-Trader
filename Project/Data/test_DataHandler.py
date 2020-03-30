@@ -48,7 +48,7 @@ class test_DataHandler:
 
     def test_toNumpy():
         result = True
-        numpyAr = Dhandler.toNumpy(DHandler.end,50,'MMM')
+        numpyAr = Dhandler.toNumpy(Dhandler,DHandler.end,50,'MMM')
         if numpyAr == None:
             result = False
         assert result == True
