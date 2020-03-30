@@ -13,7 +13,7 @@ class UserInterface(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        tk.Tk.iconbitmap(self, default = "Zoltar_Icon.ico")
+        #tk.Tk.iconbitmap(self, default = "Zoltar_Icon.ico")
         tk.Tk.wm_title(self, "Zoltar")
 
         container = tk.Frame(self)

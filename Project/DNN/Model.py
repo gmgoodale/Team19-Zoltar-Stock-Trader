@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Dense, Dropout
+from keras.layers import Dense, Dropout, LSTM
 import os
 import datetime
 import numpy as np
@@ -56,15 +56,18 @@ class Model:
             self.testData[i] = np.copy(allData[i+halfNumSets])
             self.testLabels[i] = np.copy(allLabels[i+halfNumSets])
 
-    def createModel(self, inputDim):
+    def createBasicModel(self, inputDim):
         self.model = Sequential()
         self.model.add(Dense(64, input_dim=inputDim, activation='relu'))
         self.model.add(Dropout(0.5))
         self.model.add(Dense(64, activation='relu'))
         self.model.add(Dropout(0.5))
-        self.model.add(Dense(64, activation='relu'))
-        self.model.add(Dropout(0.5))
         self.model.add(Dense(1, activation='sigmoid'))
+
+    def createLSTMModel(self, inputDim):
+        self.model = Sequential()
+        self.model.add(LSTM(64, activation='relu', input_shape = (inputDim, 1)))
+        self.model.add(Dense(1))
 
     def compileModel(self):
         self.model.compile(loss='binary_crossentropy',
@@ -82,7 +85,7 @@ class Model:
     def main(self):
         numDays = 100
         self.realData(numDays, 'GOOG')
-        self.createModel(numDays)
+        self.createBasicModel(numDays)
         self.compileModel()
         self.trainModel(100)
         self.evalModel()
