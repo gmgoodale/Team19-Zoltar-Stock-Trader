@@ -85,7 +85,7 @@ class Model:
     def main(self):
         numDays = 100
         self.realData(numDays, 'GOOG')
-        self.createLSTMModel(numDays)
+        self.createBasicModel(numDays)
         self.compileModel()
         self.trainModel(100)
         self.evalModel()
