@@ -68,4 +68,5 @@ class StartPage(tk.Frame):
 
 # When Window.py is run then it is assumed the program should run.
 zoltar = UserInterface()
+zoltar.geometry("1280x720")
 zoltar.mainloop()
