@@ -16,6 +16,23 @@ class MainPage(tk.Frame):
         grapherButton = ttk.Button(self, text = "Grapher",
                             command = lambda: controller.showFrame(Grapher.GrapherWindow))
         grapherButton.pack()
+
+        button1 = tk.Button(self, text = "Load Model",
+                            command = lambda: controller.show_frame(LoadPage))
+        button1.pack()
+
+        button2 = tk.Button(self, text = "Train New Model",
+                            command = lambda: controller.show_frame(NewModelPage))
+        button2.pack()
+
+        button3 = tk.Button(self, text = "Add Model",
+                            command = lambda: controller.show_frame(AddModelPage))
+        button3.pack()
+
+        button4 = tk.Button(self, text = "Developer Tools",
+                            command = lambda: controller.show_frame(DevToolsPage))
+        button4.pack()
+
 # TODO Settings and Graph Page
 #        makeNewModelButton = ttk.Button(self, text="Settings",
 #                            command = lambda: controller.showFrame())
