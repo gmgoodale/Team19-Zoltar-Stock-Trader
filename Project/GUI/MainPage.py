@@ -33,6 +33,12 @@ class MainPage(tk.Frame):
                             command = lambda: controller.show_frame(DevToolsPage))
         button4.pack()
 
+        button1.grind(row=0,column=1, sticky = tk.W+tk.E)
+        button2.grind(row=1,column=1, sticky = tk.W+tk.E)
+        button3.grind(row=2,column=1, sticky = tk.W+tk.E)
+        button4.grind(row=3,column=1, sticky = tk.W+tk.E)
+
+
 # TODO Settings and Graph Page
 #        makeNewModelButton = ttk.Button(self, text="Settings",
 #                            command = lambda: controller.showFrame())
