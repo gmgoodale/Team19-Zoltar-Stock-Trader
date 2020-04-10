@@ -4,8 +4,6 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 
-import importlib
-
 import numpy
 import seaborn
 import pandas
@@ -26,7 +24,7 @@ class GrapherWindow(tk.Frame):
         label.pack(pady = 10, padx = 10)
 
         homeButton = ttk.Button(self, text = "Back to Home",
-                                command = lambda: controller.returnToHome())
+                                command = lambda: controller.toHome())
         homeButton.pack()
 
         canvas = FigureCanvasTkAgg(figure, self)
