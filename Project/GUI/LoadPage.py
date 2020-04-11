@@ -21,7 +21,6 @@ class LoadWindow(tk.Frame):
 
         loadButton = tk.Button(self, text = "Load Graph",
                                command = lambda: controller.displayGraph(csvFileName = self.selectionBox.get()))
-
         loadButton.pack()
 
     def updateComboBox(self, controller):

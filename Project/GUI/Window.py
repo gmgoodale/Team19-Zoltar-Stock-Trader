@@ -9,10 +9,16 @@ import NewModelPage
 import AddModelPage
 import DevToolsPage
 
+from pathlib import Path
+
 import tkinter as tk
 from tkinter import ttk
 
+import pandas
+
 LARGE_FONT = ("Verdana", 12)
+
+datafolder = Path("Data/Tickers")
 
 # Base of the user interface; calls pages to be used from frames.
 class UserInterface(tk.Tk):
@@ -51,15 +57,56 @@ class UserInterface(tk.Tk):
         self.showFrame(MainPage.MainWindow) # Initial page to show
 
     #====================== Data Handling Methods ======================
-    # Needs list: report available csv, return csv path, get stock name
+    # Needs list: report available csv, append Model Results, get stock name,
+    # Get CSV from Stock name
     def getAvailableCSVs(self):
-        fileNames = ["TestData.csv"]
+        fileNames = ["TestData.csv", "TST2.csv"]
         return fileNames
 
-    
+    def appendModelResults(self, fileName, modelResults):
+        try:
+            csvData = pandas.read_csv(fileName)
+
+        except:
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
+            return False
+
+        csvData['Model-Prediction'] = modelResults
+
+        try:
+            csvData.to_csv(fileName)
+
+        except:
+            print("ERROR: when writing to csv file{}; aborting.".format(filename))
+            return False
+
+        return True
+
+    def getAvailableStockNames(self):
+        stockNames = ["AAPL", "TSLA", "ZLTR"]
+        return stockNames
+
+    def getTickerCSVFromName(self, stockName):
+        fileName = stockName + "_PriceData.csv"
+        if os.path.isfile(datafolder + "/" + filename):
+            return fileName
+
+        print("ERROR: No stock data found for {}".format(filename))
+
+
     #====================== DNN Handling Methods =======================
     # Needs List: Load model results, report available models,
     #             Train new DNN
+
+    def getAvailableModels(self):
+        modelNames = ["Test Model"]
+        return modelNames
+
+    def getModelResults(self, modelName):
+        # Test data, unsure how models are run [[time], [up/down]]
+        results = [[1, 2, 3, 4,], [0, 0, 1, 1]]
+        return results
+
 
     #===================== Grapher Interface Methods ========================
     # Needs List:
@@ -67,7 +114,7 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv", stockName = "Stock Name"):
+    def displayGraph(self, csvFileName = "TST1.csv", stockName = "Stock Name"):
         frame = self.frames[Grapher.GrapherWindow]
         frame.generateGraph(fileName = csvFileName, stockName = stockName)
 
