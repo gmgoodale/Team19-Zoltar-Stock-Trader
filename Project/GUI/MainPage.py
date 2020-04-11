@@ -10,10 +10,6 @@ class MainWindow(tk.Frame):
         label = tk.Label(self, text="Zoltar Stock Trader Main Page", font=LARGE_FONT)
         label.pack(pady=10,padx=10)
 
-        grapherButton = ttk.Button(self, text = "Grapher",
-                            command = lambda: controller.toGrapher())
-        grapherButton.pack()
-
         button1 = tk.Button(self, text = "Load Model",
                             command = lambda: controller.toLoadPage())
         button1.pack()

@@ -13,3 +13,13 @@ class LoadWindow(tk.Frame):
         button1 = tk.Button(self, text = "Back To Main Page",
                             command = lambda: controller.toHome())
         button1.pack()
+
+        loadButton = tk.Button(self, text = "Load Graph",
+                               command = lambda: controller.displayGraph())
+
+        '''
+        comboBoxSelection = tk.StringVar()
+        selectionBox = ttk.Combobox(self, width = 20, textvariable = comboBoxSelection)
+        selectionBox['values'] = controller.modelList
+        comboBoxSelection.pack()
+        '''
