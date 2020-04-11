@@ -40,13 +40,13 @@ class GrapherWindow(tk.Frame):
         self.label['text'] = newLabel
 
     #========================= Graph Functions ==============================
-    def generateGraph(self, predictionFileName, stockName = "Stock Data"):
+    def generateGraph(self, fileName, stockName = "Stock Data"):
         # 'usecols' can be added to read_csv if multiple cols are present in file
         try:
-            plotData = pandas.read_csv(predictionFileName)
+            plotData = pandas.read_csv(fileName)
 
         except:
-            print("ERROR: when reading csv file while generating graph; aborting.")
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
             return False
 
         if self.checkNumbers(plotData):

@@ -14,12 +14,15 @@ class LoadWindow(tk.Frame):
                             command = lambda: controller.toHome())
         button1.pack()
 
-        loadButton = tk.Button(self, text = "Load Graph",
-                               command = lambda: controller.displayGraph())
+        self.comboBoxSelection = tk.StringVar()
+        self.selectionBox = ttk.Combobox(self, width = 20, textvariable = self.comboBoxSelection)
+        self.selectionBox['postcommand'] = self.updateComboBox(controller)
+        self.selectionBox.pack()
 
-        '''
-        comboBoxSelection = tk.StringVar()
-        selectionBox = ttk.Combobox(self, width = 20, textvariable = comboBoxSelection)
-        selectionBox['values'] = controller.modelList
-        comboBoxSelection.pack()
-        '''
+        loadButton = tk.Button(self, text = "Load Graph",
+                               command = lambda: controller.displayGraph(csvFileName = self.selectionBox.get()))
+
+        loadButton.pack()
+
+    def updateComboBox(self, controller):
+        self.selectionBox['values'] = controller.getAvailableCSVs()

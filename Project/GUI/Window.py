@@ -16,6 +16,7 @@ LARGE_FONT = ("Verdana", 12)
 
 # Base of the user interface; calls pages to be used from frames.
 class UserInterface(tk.Tk):
+    # Easier for reading
     def __init__(self, *args, **kwargs):
         #======================= Creating the window =====================
         super().__init__(*args, **kwargs)
@@ -51,7 +52,11 @@ class UserInterface(tk.Tk):
 
     #====================== Data Handling Methods ======================
     # Needs list: report available csv, return csv path, get stock name
+    def getAvailableCSVs(self):
+        fileNames = ["TestData.csv"]
+        return fileNames
 
+    
     #====================== DNN Handling Methods =======================
     # Needs List: Load model results, report available models,
     #             Train new DNN
@@ -59,10 +64,12 @@ class UserInterface(tk.Tk):
     #===================== Grapher Interface Methods ========================
     # Needs List:
     def changeGrapherLabel(self, newLabel):
-        Grapher.GrapherWindow.changeLabel(newLabel)
+        frame = self.frames[Grapher.GrapherWindow]
+        frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv", stockName = "Stock Data"):
-        Grapher.GrapherWindow.generateGraph(csvFileName, stockName)
+    def displayGraph(self, csvFileName = "TestData.csv", stockName = "Stock Name"):
+        frame = self.frames[Grapher.GrapherWindow]
+        frame.generateGraph(fileName = csvFileName, stockName = stockName)
 
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
