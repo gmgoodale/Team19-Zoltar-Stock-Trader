@@ -3,71 +3,82 @@ matplotlib.use("TkAgg") # Allows for Tk use rather than the standard
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-
-import importlib
+from matplotlib.dates import (YEARLY, DateFormatter,
+                              rrulewrapper, RRuleLocator, drange)
 
 import numpy
+from datetime import datetime
 import seaborn
 import pandas
+from pandas.plotting import register_matplotlib_converters
 from numpy.random import randint
 
 import tkinter as tk
 from tkinter import ttk
 
-LARGE_FONT = ("Verdana", 12)
+LARGE_FONT = ("Verdana", 12, "bold")
 
-figure = plt.figure()
-graphArea = figure.add_subplot(111)
+register_matplotlib_converters()
 
 class GrapherWindow(tk.Frame):
     def __init__(self, parent, controller):
+        self.figure = plt.figure()
+        figure = self.figure
+        self.graphArea = figure.add_subplot(111)
+
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text = "Graph Page", font = LARGE_FONT)
-        label.pack(pady = 10, padx = 10)
 
-        homeButton = ttk.Button(self, text = "Back to Home",
-                                command = lambda: controller.returnToHome())
-        homeButton.pack()
+        self.canvas = FigureCanvasTkAgg(figure, self)
+        self.canvas.draw()
+        self.canvas.get_tk_widget().pack(side = tk.BOTTOM, fill = tk.BOTH, expand = True)
 
-        canvas = FigureCanvasTkAgg(figure, self)
-        canvas.draw()
-        canvas.get_tk_widget().pack(side = tk.BOTTOM, fill = tk.BOTH, expand = True)
-
-        toolbar = NavigationToolbar2Tk(canvas, self)
+        toolbar = NavigationToolbar2Tk(self.canvas, self)
         toolbar.update()
-        canvas._tkcanvas.pack(side = tk.TOP, fill = tk.BOTH, expand = True)
+        self.canvas._tkcanvas.pack(side = tk.TOP, fill = tk.BOTH, expand = True)
 
-        graphButton = ttk.Button(self, text = "Generate Graph",
-                                 command = lambda: self.generateGraph(canvas, predictionFileName = "TestData.csv"))
-        graphButton.pack()
+    #========================== Frame Functions =============================
+    def changeLabel(self, newLabel):
+        self.label['text'] = newLabel
 
 
-    def generateGraph(self, canvas, predictionFileName, stockName = "Stock Data"):
+    #========================= Graph Functions ==============================
+    def generateGraph(self, fileName, stockNames, predictionName):
         # 'usecols' can be added to read_csv if multiple cols are present in file
         try:
-            plotData = pandas.read_csv(predictionFileName)
+            plotData = pandas.read_csv(fileName)
 
         except:
-            print("ERROR: when reading csv file while generating graph; aborting.")
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
             return False
-
-        if self.checkNumbers(plotData):
+        graphArea = self.graphArea
+        if self.checkNumbers(plotData, stockNames):
             graphArea.clear()
-            graphArea.plot(plotData)
-            graphArea.set(title = stockName)
-            graphArea.set_xlabel("Time (Days)")
+            dates = []
+            for d in plotData['Date']:
+                dates.append(datetime.strptime(d, '%Y-%m-%d'))
+
+            for S in stockNames:
+                graphArea.plot(dates, plotData[S], label = S)
+
+            graphArea.set(title = predictionName)
+            graphArea.legend(framealpha = 1, frameon = True)
+            graphArea.set_xlabel("Date")
             graphArea.set_ylabel("Price (USD)")
+            graphArea.xaxis.set_major_locator(plt.MaxNLocator(10))
             graphArea.grid()
-            canvas.draw()
+
+            self.canvas.draw()
             return True
 
         else:
             print("ERROR:  Data contains negative numbers")
             return False
 
-
-    def checkNumbers(self, data):
-        for col in data.columns:
-            if min(data[col]) < 0:
-                return False
-        return True
+    def checkNumbers(self, data, stockNames):
+        try:
+            for S in stockNames:
+                if min(data[S]) < 0:
+                    return False
+                return True
+        except:
+            return False

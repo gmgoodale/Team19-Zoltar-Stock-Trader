@@ -1,73 +1,172 @@
 #!/usr/bin/python
 import importlib
+
+# Add page files here
 import Grapher
+import MainPage
+import NewPredictionPage
+import AddModelPage
+import DevToolsPage
+
+from pathlib import Path
 
 import tkinter as tk
 from tkinter import ttk
 
-LARGE_FONT = ("Verdana", 12)
+import pandas
+
+import os
+
+LARGE_FONT = ("Verdana", 12, "bold")
+SMALL_FONT = ("Verdana", 10)
+
+datafolder = Path("Data/Tickers")
 
 # Base of the user interface; calls pages to be used from frames.
 class UserInterface(tk.Tk):
-
+    # Easier for reading
     def __init__(self, *args, **kwargs):
+        #======================= Creating the window =====================
         super().__init__(*args, **kwargs)
 
         #tk.Tk.iconbitmap(self, default = "Zoltar_Icon.ico")
         tk.Tk.wm_title(self, "Zoltar")
 
+        # Container = window seen
         container = tk.Frame(self)
         container.pack(side = "top", fill = "both", expand = True)
         container.grid_rowconfigure(0, weight = 1)
-        container.grid_columnconfigure(0, weight = 1)
+        container.grid_columnconfigure(0, weight = 3) # Weights the graph to be larger
+        container.grid_columnconfigure(1, weight = 1)
 
+        # Frame configuration: loop runs through right-side frames
         self.frames = {}
 
-        for F in (StartPage, Grapher.GrapherWindow):
+        # Add all right-side frames to this loop
+        for F in (MainPage.MainWindow, NewPredictionPage.NewPredictionWindow, AddModelPage.AddModelWindow,
+                  DevToolsPage.DevToolsWindow):
             frame = F(container, self)
 
             self.frames[F] = frame
 
-            frame.grid(row = 0, column = 0, sticky = "nsew")
+            frame.grid(row = 0, column = 1, sticky = "nsew")
 
-        self.showFrame(StartPage)
+        # Only 1 Left-side frame, but same function as loop
+        frame = Grapher.GrapherWindow(container, self)
+        self.frames[Grapher.GrapherWindow] = frame
 
-    # Attempts to show a frame given a container 'cont'
-    # Success returns 0, failure returns -1
+        frame.grid(row = 0, column = 0, sticky = "nsew")
+
+        self.showFrame(MainPage.MainWindow) # Initial page to show
+
+    #====================== Data Handling Methods ======================
+    # Needs list: report available csv, append Model Results, get stock name,
+    # Get CSV from Stock name
+    def saveModel(self, stockNames):
+        fileName = "testytest"
+        path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName + ".csv"
+        newCSV = open(path, "w")
+        newCSV.close()
+
+        allData = pandas.DataFrame()
+        for stock in stockNames:
+            print("adding... " + stock)
+            stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData.csv"
+            csvData = pandas.read_csv(stockPath)
+            del csvData["Open"]
+            allData = pandas.concat([allData, csvData], axis=1, sort=False)
+
+        allData.to_csv(path, mode='a', header = True)
+        print("done")
+
+    def getAvailableCSVs(self):
+        fileNames = ["TestData.csv", "TST2.csv"]
+        return fileNames
+
+    def appendModelResults(self, fileName, modelResults):
+        try:
+            csvData = pandas.read_csv(fileName)
+
+        except:
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
+            return False
+
+        csvData['Model-Prediction'] = modelResults
+
+        try:
+            csvData.to_csv(fileName)
+
+        except:
+            print("ERROR: when writing to csv file{}; aborting.".format(filename))
+            return False
+
+        return True
+
+    def getAvailableStockNames(self):
+        stockNames = ["AAPL", "AAP", "MMM"]
+        return stockNames
+
+    def getTickerCSVFromName(self, stockName):
+        fileName = stockName + "_PriceData.csv"
+        if os.path.isfile(datafolder + "/" + filename):
+            return fileName
+
+        print("ERROR: No stock data found for {}".format(filename))
+
+
+    #====================== DNN Handling Methods =======================
+    # Needs List: Load model results, report available models,
+    #             Train new DNN
+
+    def getAvailableModels(self):
+        modelNames = ["Test Model"]
+        return modelNames
+
+    def getModelResults(self, modelName):
+        # Test data, unsure how models are run [[time], [up/down]]
+        results = [[1, 2, 3, 4,], [0, 0, 1, 1]]
+        return results
+
+
+    #===================== Grapher Interface Methods ========================
+    # Needs List:
+    def changeGrapherLabel(self, newLabel):
+        frame = self.frames[Grapher.GrapherWindow]
+        frame.GrapherWindow.changeLabel(newLabel)
+
+    def displayGraph(self, csvFileName = "TestData.csv", stockNames = ["AAPL", "AMD"], predictionName = ""):
+        frame = self.frames[Grapher.GrapherWindow]
+        frame.generateGraph(fileName = csvFileName, stockNames = stockNames, predictionName = predictionName)
+
+    #======================= Navigation Methods ========================
     def showFrame(self, cont):
         try:
             frame = self.frames[cont]
 
         except:
             return -1
-
+        # raise; all other frames are underneath (Saves state of each)
         frame.tkraise()
         return 0
 
-    def returnToHome(self):
-        self.showFrame(StartPage)
+    def toHome(self):
+        self.showFrame(MainPage.MainWindow)
 
-class MainPage(tk.Frame):
+    def toLoadPage(self):
+        self.showFrame(LoadPage.LoadWindow)
 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self,parent)
-        label = tk.Label(self, text="Zoltar Stock Trader Main Page", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
+    def toNewPrediction(self):
+        self.showFrame(NewPredictionPage.NewPredictionWindow)
 
-        grapherButton = ttk.Button(self, text = "Grapher",
-                            command = lambda: controller.showFrame(Grapher.GrapherWindow))
-        grapherButton.pack()
-# TODO Settings and Graph Page
-#        makeNewModelButton = ttk.Button(self, text="Settings",
-#                            command = lambda: controller.showFrame())
-#        makeNewModelButton.pack()
+    def toAddModel(self):
+        self.showFrame(AddModelPage.AddModelWindow)
 
-#        loadExistingModelButton = ttk.Button(self, text="Graph Page",
-#                            command = lambda: controller.showFrame())
-#        loadExistingModelButton.pack()
+    def toDevTools(self):
+        self.showFrame(DevToolsPage.DevToolsWindow)
+
+
 
 # When Window.py is run then it is assumed the program should run.
-
 
 zoltar = UserInterface()
 zoltar.geometry("1280x720")
