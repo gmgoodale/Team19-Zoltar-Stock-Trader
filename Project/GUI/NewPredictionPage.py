@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkcalendar import Calendar, DateEntry
 
 LARGE_FONT = ("Verdana", 12, "bold")
 SMALL_FONT = ("Verdana", 10)
@@ -19,6 +20,7 @@ class NewPredictionWindow(tk.Frame):
         self.drawAvailableListBox(parent, controller)
         self.drawSelectedListBox(parent, controller)
         self.drawSpinBox(parent, controller)
+        self.drawIntitialDateEntry(parent, controller)
 
         saveButton = tk.Button(self, text = "Save Prediction", font = SMALL_FONT,
                                command = lambda: controller.saveModel(self.currentlySelectedStocks()))
@@ -77,6 +79,16 @@ class NewPredictionWindow(tk.Frame):
 
         self.spinBox = ttk.Spinbox(self, width = 10, from_ = 0, to = 100)
         self.spinBox.grid(column = 2, row = 3, sticky = tk.E, padx = 10, pady = 3)
+
+    def drawIntitialDateEntry(self, parent, controller):
+        widgetRow = 8
+        widgetCol = 0
+
+        initialDateLabel = tk.Label(self, text = "Initial Date", font = SMALL_FONT)
+        initialDateLabel.grid(column = widgetCol, row = widgetRow, sticky = tk.S, padx = 10, pady = 3)
+
+        self.initialDateEntry = DateEntry(self, width = 10, borderwidth = 2)
+        self.initialDateEntry.grid(column = widgetCol, row = widgetRow + 1, padx = 10, pady = 3)
 
     #======================================= Frame Functions =======================================
     def updateComboBox(self, controller):
