@@ -43,7 +43,7 @@ class DataHandler:
             self.df = pd.DataFrame()
 
     def TrimDataFrame(self):
-        self.df.drop(columns = ['High','Low','Volume','Adj Close'])
+        self.df = self.df.drop(columns = ['High','Low','Volume','Adj Close'])
 
     def sqlExport(t):
         try:
@@ -80,7 +80,8 @@ class DataHandler:
             if not self.df.empty:
                 self.TrimDataFrame()
                 self.csvExport(t)
-            self.numberOfTickers = self.numberOfTickers + 1;
+            else:
+                self.numberOfTickers = self.numberOfTickers + 1;
         return('Tickers Succesfully Exported')
 
     def csvExport(self,ticker):
