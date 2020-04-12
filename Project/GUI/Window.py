@@ -15,6 +15,8 @@ from tkinter import ttk
 
 import pandas
 
+import os
+
 LARGE_FONT = ("Verdana", 12, "bold")
 SMALL_FONT = ("Verdana", 10)
 
@@ -60,6 +62,23 @@ class UserInterface(tk.Tk):
     #====================== Data Handling Methods ======================
     # Needs list: report available csv, append Model Results, get stock name,
     # Get CSV from Stock name
+    def saveModel(self, stockNames):
+        fileName = "testytest"
+        path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName + ".csv"
+        newCSV = open(path, "w")
+        newCSV.close()
+
+        allData = pandas.DataFrame()
+        for stock in stockNames:
+            print("adding... " + stock)
+            stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData.csv"
+            csvData = pandas.read_csv(stockPath)
+            del csvData["Open"]
+            allData = pandas.concat([allData, csvData], axis=1, sort=False)
+
+        allData.to_csv(path, mode='a', header = True)
+        print("done")
+
     def getAvailableCSVs(self):
         fileNames = ["TestData.csv", "TST2.csv"]
         return fileNames
@@ -84,7 +103,7 @@ class UserInterface(tk.Tk):
         return True
 
     def getAvailableStockNames(self):
-        stockNames = ["AAPL", "TSLA", "ZLTR"]
+        stockNames = ["AAPL", "AAP", "MMM"]
         return stockNames
 
     def getTickerCSVFromName(self, stockName):

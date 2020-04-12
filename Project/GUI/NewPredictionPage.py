@@ -21,7 +21,7 @@ class NewPredictionWindow(tk.Frame):
         self.drawSpinBox(parent, controller)
 
         saveButton = tk.Button(self, text = "Save Prediction", font = SMALL_FONT,
-                               command = lambda: self.saveModel())
+                               command = lambda: controller.saveModel(self.currentlySelectedStocks()))
         saveButton.grid(column = 2, columnspan = 10, row = 7, sticky = tk.N, padx = 10, pady = 20)
 
         button1 = tk.Button(self, text = "Back To Main Page", font = SMALL_FONT,
@@ -100,6 +100,9 @@ class NewPredictionWindow(tk.Frame):
             self.selectedStockListBox.delete(index)
         except:
             return
+
+    def currentlySelectedStocks(self):
+        return list(self.selectedStockListBox.get(0, tk.END))
 
     def savePrediction(self):
         # grabs the selected stocks to a list
