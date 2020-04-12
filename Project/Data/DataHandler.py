@@ -87,7 +87,7 @@ class DataHandler:
         #start = self.start.strftime("%m/%d/%Y")
         #end = self.end.strftime("%m/%d/%Y")
         #timeInterval = start + '-' + end
-        self.df.to_csv('Tickers/'+ ticker + '_PriceData_40Years')
+        self.df.to_csv('Tickers/'+ ticker + '_PriceData_40Years.csv')
         return ('Exported ' + ticker + ' data to CSV file')
 
 if __name__== "__main__":
