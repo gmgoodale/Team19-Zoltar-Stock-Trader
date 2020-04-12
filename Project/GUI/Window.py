@@ -62,9 +62,18 @@ class UserInterface(tk.Tk):
     #====================== Data Handling Methods ======================
     # Needs list: report available csv, append Model Results, get stock name,
     # Get CSV from Stock name
-    def saveModel(self, stockNames, startDate, endDate, fileName):
+    def saveNewPrediction(self):
+        #============================== Collecting Variables ===============================
+        frame = self.frames[NewPredictionPage.NewPredictionWindow]
+
+        stockNames = frame.currentlySelectedStocks()
+        startDate = frame.getStartDate()
+        endDate = frame.getEndDate()
+        predictionName = frame.getName()
+
         path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName + ".csv"
 
+        #=============================== Generating File ==================================
         allData = pandas.DataFrame()
         for stock in stockNames:
             # Get the stock data from a CSV and put it in a data frame for editing

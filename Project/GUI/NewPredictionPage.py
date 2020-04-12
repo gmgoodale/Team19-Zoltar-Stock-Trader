@@ -24,7 +24,7 @@ class NewPredictionWindow(tk.Frame):
         self.drawEndDateEntry(parent, controller)
 
         saveButton = tk.Button(self, text = "Save Prediction", font = SMALL_FONT,
-                               command = lambda: controller.saveModel(self.currentlySelectedStocks()))
+                               command = lambda: controller.saveNewPrediction())
         saveButton.grid(column = 2, columnspan = 10, row = 7, sticky = tk.N, padx = 10, pady = 20)
 
         button1 = tk.Button(self, text = "Back To Main Page", font = SMALL_FONT,
@@ -91,13 +91,6 @@ class NewPredictionWindow(tk.Frame):
         self.initialDateEntry = DateEntry(self, width = 10, borderwidth = 2)
         self.initialDateEntry.grid(column = widgetCol, row = widgetRow + 1, padx = 10, pady = 3)
 
-        endDateLabel = tk.Label(self, text = "Final Date", font = SMALL_FONT)
-        endDateLabel.grid(column = widgetCol, row = widgetRow + 2, sticky = tk.S, padx = 10, pady = 3)
-
-        self.finalDateEntry = DateEntry(self, width = 10, borderwidth = 2)
-        self.finalDateEntry.grid(column = widgetCol, row = widgetRow + 3, padx = 10, pady = 3)
-
-
 
     def drawEndDateEntry(self, parent, controller):
         widgetRow = 8
@@ -133,8 +126,17 @@ class NewPredictionWindow(tk.Frame):
         except:
             return
 
-    def currentlySelectedStocks(self):
+    def getCurrentlySelectedStocks(self):
         return list(self.selectedStockListBox.get(0, tk.END))
+
+    def getStartDate(self):
+        return self.startDateEntry.get_date()
+
+    def getEndDate(self):
+        return self.endDateEntry.get_date()
+
+    def getName(self):
+        return self.nameField.get()
 
     def savePrediction(self):
         # grabs the selected stocks to a list
