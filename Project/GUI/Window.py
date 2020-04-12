@@ -67,16 +67,25 @@ class UserInterface(tk.Tk):
         path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName + ".csv"
         newCSV = open(path, "w")
         newCSV.close()
+        first = True
 
         allData = pandas.DataFrame()
         for stock in stockNames:
             print("adding... " + stock)
             stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData.csv"
             csvData = pandas.read_csv(stockPath)
-            del csvData["Open"]
-            allData = pandas.concat([allData, csvData], axis=1, sort=False)
+            csvData.columns = ["Date", "Open", stock]
 
-        allData.to_csv(path, mode='a', header = True)
+            if (not first):
+                del csvData["Open"]
+                del csvData["Date"]
+                allData = pandas.concat([allData, csvData], axis=1, sort=False, join='inner')
+            else:
+                del csvData["Open"]
+                allData = pandas.concat([allData, csvData], axis=1, sort=False)
+                first = False
+
+        allData.to_csv(path, mode='a', header = True, index = False)
         print("done")
 
     def getAvailableCSVs(self):
