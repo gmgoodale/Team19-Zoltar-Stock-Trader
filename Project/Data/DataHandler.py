@@ -20,7 +20,7 @@ class DataHandler:
         self.start = datetime.datetime(1980,1,1)
         self.end = datetime.datetime.now()
         self.tickers = []
-        self.numberOfTickers = 15
+        self.numberOfTickers = 20
         self.df = pd.DataFrame()
 
     def setTimeframe(start,end):
@@ -28,22 +28,22 @@ class DataHandler:
             self.start = start
             self.end = end
 
-    def readTickers():
+    def readTickers(self):
         with open('TargetTickers.csv') as csvDataFile:
             csvReader = csv.reader(csvDataFile)
-        for row in csvReader:
-            tickers.append(row[0])
+            for row in csvReader:
+                self.tickers.append(row[0])
 
-    def GenYahDataFrame(t):
+    def GenYahDataFrame(self,t):
         try:
-            df = web.DataReader(t, 'yahoo',start,end)
+            self.df = web.DataReader(t, 'yahoo',self.start,self.end)
 
         except:
             print('Bad ticker: ' + t)
-            df = None
+            self.df = pd.DataFrame()
 
-    def TrimDataFrame():
-        df = df.drop(columns = ['High','Low','Volume','Adj Close'])
+    def TrimDataFrame(self):
+        self.df.drop(columns = ['High','Low','Volume','Adj Close'])
 
     def sqlExport(t):
         try:
@@ -74,19 +74,23 @@ class DataHandler:
 
         return outputArr
 
-    def exportTickers():
-        for t in tickers[:numberOfTickers]:
-            GenYahDataFrame(t)
-            if df != None:
-                TrimDataFrame(df)
-                cveExport(df,t)
+    def exportTickers(self):
+        for t in self.tickers[:self.numberOfTickers]:
+            self.GenYahDataFrame(t)
+            if not self.df.empty:
+                self.TrimDataFrame()
+                self.csvExport(t)
+            self.numberOfTickers = self.numberOfTickers + 1;
         return('Tickers Succesfully Exported')
 
-    def csvExport(dFrame,ticker):
-        timeInterval = start + 'to' + end
-        df.to_csv('Tickers/'+ ticker + '_PriceData_' + timeInterval)
+    def csvExport(self,ticker):
+        #start = self.start.strftime("%m/%d/%Y")
+        #end = self.end.strftime("%m/%d/%Y")
+        #timeInterval = start + '-' + end
+        self.df.to_csv('Tickers/'+ ticker + '_PriceData_40Years')
         return ('Exported ' + ticker + ' data to CSV file')
 
-    if __name__== "__main__":
-        dh = Datahandler()
-        dh.main()
+if __name__== "__main__":
+    dh = DataHandler()
+    dh.readTickers()
+    dh.exportTickers()
