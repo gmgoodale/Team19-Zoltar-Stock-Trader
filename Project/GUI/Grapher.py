@@ -20,7 +20,7 @@ graphArea = figure.add_subplot(111)
 class GrapherWindow(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.label = tk.Label(self, text = "Graph Page", font = LARGE_FONT)
+        self.label = tk.Label(self, text = "No Model Loaded", font = LARGE_FONT)
         self.label.pack(pady = 10, padx = 10)
 
         self.canvas = FigureCanvasTkAgg(figure, self)
