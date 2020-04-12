@@ -90,6 +90,12 @@ class NewPredictionWindow(tk.Frame):
         self.initialDateEntry = DateEntry(self, width = 10, borderwidth = 2)
         self.initialDateEntry.grid(column = widgetCol, row = widgetRow + 1, padx = 10, pady = 3)
 
+        finalDateLabel = tk.Label(self, text = "Final Date", font = SMALL_FONT)
+        finalDateLabel.grid(column = widgetCol, row = widgetRow + 2, sticky = tk.S, padx = 10, pady = 3)
+
+        self.finalDateEntry = DateEntry(self, width = 10, borderwidth = 2)
+        self.finalDateEntry.grid(column = widgetCol, row = widgetRow + 3, padx = 10, pady = 3)
+
     #======================================= Frame Functions =======================================
     def updateComboBox(self, controller):
         self.selectionBox['values'] = controller.getAvailableModels()

@@ -62,31 +62,24 @@ class UserInterface(tk.Tk):
     #====================== Data Handling Methods ======================
     # Needs list: report available csv, append Model Results, get stock name,
     # Get CSV from Stock name
-    def saveModel(self, stockNames):
-        fileName = "testytest"
+    def saveModel(self, stockNames, startDate, endDate, fileName):
         path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName + ".csv"
-        newCSV = open(path, "w")
-        newCSV.close()
-        first = True
 
         allData = pandas.DataFrame()
         for stock in stockNames:
-            print("adding... " + stock)
+            # Get the stock data from a CSV and put it in a data frame for editing
             stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData.csv"
             csvData = pandas.read_csv(stockPath)
+            # Reanme the thrid colunm to the stock name
             csvData.columns = ["Date", "Open", stock]
+            # Get rid of the open column, we just look at close prices
+            del csvData["Open"]
+            csvData["Date"] = pandas.to_datetime(csvData["Date"])
+            csvData = csvData.set_index("Date")
+            allData = pandas.concat([allData, csvData], axis=1, sort=False)
 
-            if (not first):
-                del csvData["Open"]
-                del csvData["Date"]
-                allData = pandas.concat([allData, csvData], axis=1, sort=False, join='inner')
-            else:
-                del csvData["Open"]
-                allData = pandas.concat([allData, csvData], axis=1, sort=False)
-                first = False
-
-        allData.to_csv(path, mode='a', header = True, index = False)
-        print("done")
+        # Save the combined, modified, data frames
+        allData[startDate:endDate].to_csv(path, mode='a', header = True)
 
     def getAvailableCSVs(self):
         fileNames = ["TestData.csv", "TST2.csv"]
