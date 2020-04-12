@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 
-LARGE_FONT = ("Verdana", 12)
+LARGE_FONT = ("Verdana", 12, "bold")
 SMALL_FONT = ("Verdana", 10)
-class NewModelWindow(tk.Frame):
+class NewPredictionWindow(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -11,7 +11,7 @@ class NewModelWindow(tk.Frame):
         self.grid_columnconfigure(0, weight = 1)
         self.grid_columnconfigure(2, weight = 1)
 
-        label = tk.Label(self, text="New Model", font = LARGE_FONT)
+        label = tk.Label(self, text="New Prediction", font = LARGE_FONT)
         label.grid(column = 0, columnspan = 3, row = 0, sticky = tk.N,
                    pady = 10)
 
@@ -20,7 +20,7 @@ class NewModelWindow(tk.Frame):
         self.drawSelectedListBox(parent, controller)
         self.drawSpinBox(parent, controller)
 
-        saveButton = tk.Button(self, text = "Save Model", font = SMALL_FONT,
+        saveButton = tk.Button(self, text = "Save Prediction", font = SMALL_FONT,
                                command = lambda: self.saveModel())
         saveButton.grid(column = 2, columnspan = 10, row = 7, sticky = tk.N, padx = 10, pady = 20)
 
@@ -30,11 +30,11 @@ class NewModelWindow(tk.Frame):
 
     #======================================= Draw Functions ========================================
     def drawNameField(self, parent, controller):
-        nameFieldLabel = tk.Label(self, text = "Model Name", font = SMALL_FONT)
+        nameFieldLabel = tk.Label(self, text = "Prediction Name", font = SMALL_FONT)
         nameFieldLabel.grid(column = 0, row = 1, sticky = tk.W, pady = 10, padx = 10)
 
         newName = tk.StringVar()
-        nameField = tk.Entry(self, width = 20, textvariable = newName)
+        nameField = tk.Entry(self, width = 20, textvariable = newName, font = SMALL_FONT,)
         nameField.grid(column = 1, columnspan = 2, row = 1, padx = 10, pady = 10, sticky = tk.W)
 
     def drawAvailableListBox(self, parent, controller):
@@ -101,7 +101,7 @@ class NewModelWindow(tk.Frame):
         except:
             return
 
-    def saveModel(self):
+    def savePrediction(self):
         # grabs the selected stocks to a list
         selectedStocks = list(self.selectedStockListBox.get(0, tk.END))
         return

@@ -4,8 +4,7 @@ import importlib
 # Add page files here
 import Grapher
 import MainPage
-import LoadPage
-import NewModelPage
+import NewPredictionPage
 import AddModelPage
 import DevToolsPage
 
@@ -16,7 +15,8 @@ from tkinter import ttk
 
 import pandas
 
-LARGE_FONT = ("Verdana", 12)
+LARGE_FONT = ("Verdana", 12, "bold")
+SMALL_FONT = ("Verdana", 10)
 
 datafolder = Path("Data/Tickers")
 
@@ -41,8 +41,8 @@ class UserInterface(tk.Tk):
         self.frames = {}
 
         # Add all right-side frames to this loop
-        for F in (MainPage.MainWindow, LoadPage.LoadWindow,
-                  NewModelPage.NewModelWindow, AddModelPage.AddModelWindow, DevToolsPage.DevToolsWindow):
+        for F in (MainPage.MainWindow, NewPredictionPage.NewPredictionWindow, AddModelPage.AddModelWindow,
+                  DevToolsPage.DevToolsWindow):
             frame = F(container, self)
 
             self.frames[F] = frame
@@ -136,8 +136,8 @@ class UserInterface(tk.Tk):
     def toLoadPage(self):
         self.showFrame(LoadPage.LoadWindow)
 
-    def toNewModel(self):
-        self.showFrame(NewModelPage.NewModelWindow)
+    def toNewPrediction(self):
+        self.showFrame(NewPredictionPage.NewPredictionWindow)
 
     def toAddModel(self):
         self.showFrame(AddModelPage.AddModelWindow)

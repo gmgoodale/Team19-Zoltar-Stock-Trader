@@ -12,7 +12,7 @@ from numpy.random import randint
 import tkinter as tk
 from tkinter import ttk
 
-LARGE_FONT = ("Verdana", 12)
+LARGE_FONT = ("Verdana", 12, "bold")
 
 figure = plt.figure()
 graphArea = figure.add_subplot(111)

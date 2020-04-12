@@ -5,7 +5,7 @@ import Grapher
 import tkinter as tk
 from tkinter import ttk
 
-LARGE_FONT = ("Verdana", 12)
+LARGE_FONT = ("Verdana", 12, "bold")
 
 # Base of the user interface; calls pages to be used from frames.
 class UserInterface(tk.Tk):
