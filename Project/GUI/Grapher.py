@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import numpy
 import seaborn
 import pandas
+from pandas.plotting import register_matplotlib_converters
 from numpy.random import randint
 
 import tkinter as tk
@@ -14,14 +15,15 @@ from tkinter import ttk
 
 LARGE_FONT = ("Verdana", 12, "bold")
 
-figure = plt.figure()
-graphArea = figure.add_subplot(111)
+register_matplotlib_converters()
 
 class GrapherWindow(tk.Frame):
     def __init__(self, parent, controller):
+        self.figure = plt.figure()
+        figure = self.figure
+        self.graphArea = figure.add_subplot(111)
+
         tk.Frame.__init__(self, parent)
-        self.label = tk.Label(self, text = "No Model Loaded", font = LARGE_FONT)
-        self.label.pack(pady = 10, padx = 10)
 
         self.canvas = FigureCanvasTkAgg(figure, self)
         self.canvas.draw()
@@ -31,16 +33,13 @@ class GrapherWindow(tk.Frame):
         toolbar.update()
         self.canvas._tkcanvas.pack(side = tk.TOP, fill = tk.BOTH, expand = True)
 
-        graphButton = ttk.Button(self, text = "Generate Graph",
-                                 command = lambda: controller.displayGraph())
-        graphButton.pack()
-
     #========================== Frame Functions =============================
     def changeLabel(self, newLabel):
         self.label['text'] = newLabel
 
+
     #========================= Graph Functions ==============================
-    def generateGraph(self, fileName, stockName = "Stock Data"):
+    def generateGraph(self, fileName, stockNames, predictionName):
         # 'usecols' can be added to read_csv if multiple cols are present in file
         try:
             plotData = pandas.read_csv(fileName)
@@ -48,14 +47,19 @@ class GrapherWindow(tk.Frame):
         except:
             print("ERROR: when reading csv file {}; aborting.".format(fileName))
             return False
-
-        if self.checkNumbers(plotData):
+        graphArea = self.graphArea
+        if self.checkNumbers(plotData, stockNames):
             graphArea.clear()
-            graphArea.plot(plotData)
-            graphArea.set(title = stockName)
+            time = plotData['Date']
+
+            for S in stockNames:
+                graphArea.plot_date(time, plotData[S], label = S)
+
+            graphArea.set(title = predictionName)
             graphArea.set_xlabel("Time (Days)")
             graphArea.set_ylabel("Price (USD)")
             graphArea.grid()
+
             self.canvas.draw()
             return True
 
@@ -63,9 +67,11 @@ class GrapherWindow(tk.Frame):
             print("ERROR:  Data contains negative numbers")
             return False
 
-
-    def checkNumbers(self, data):
-        for col in data.columns:
-            if min(data[col]) < 0:
-                return False
-        return True
+    def checkNumbers(self, data, stockNames):
+        try:
+            for S in stockNames:
+                if min(data[S]) < 0:
+                    return False
+                return True
+        except:
+            return False

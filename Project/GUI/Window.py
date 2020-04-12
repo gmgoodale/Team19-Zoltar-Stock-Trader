@@ -115,9 +115,9 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TST1.csv", stockName = "Stock Name"):
+    def displayGraph(self, csvFileName = "TestData.csv", stockNames = ["AAPL", "AMD"], predictionName = ""):
         frame = self.frames[Grapher.GrapherWindow]
-        frame.generateGraph(fileName = csvFileName, stockName = stockName)
+        frame.generateGraph(fileName = csvFileName, stockNames = stockNames, predictionName = predictionName)
 
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
