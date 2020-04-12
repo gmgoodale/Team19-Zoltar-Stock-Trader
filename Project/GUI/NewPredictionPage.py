@@ -21,6 +21,7 @@ class NewPredictionWindow(tk.Frame):
         self.drawSelectedListBox(parent, controller)
         self.drawSpinBox(parent, controller)
         self.drawIntitialDateEntry(parent, controller)
+        self.drawEndDateEntry(parent, controller)
 
         saveButton = tk.Button(self, text = "Save Prediction", font = SMALL_FONT,
                                command = lambda: controller.saveModel(self.currentlySelectedStocks()))
@@ -89,6 +90,17 @@ class NewPredictionWindow(tk.Frame):
 
         self.initialDateEntry = DateEntry(self, width = 10, borderwidth = 2)
         self.initialDateEntry.grid(column = widgetCol, row = widgetRow + 1, padx = 10, pady = 3)
+
+    def drawEndDateEntry(self, parent, controller):
+        widgetRow = 8
+        widgetCol = 2
+
+        endDateLabel = tk.Label(self, text = "End Date", font = SMALL_FONT)
+        endDateLabel.grid(column = widgetCol, row = widgetRow, sticky = tk.S, padx = 10, pady = 3)
+
+        self.endDateEntry = DateEntry(self, width = 10, borderwidth = 2)
+        self.endDateEntry.grid(column = widgetCol, row = widgetRow + 1, padx = 10, pady = 3)
+
 
     #======================================= Frame Functions =======================================
     def updateComboBox(self, controller):
