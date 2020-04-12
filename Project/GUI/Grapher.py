@@ -3,8 +3,11 @@ matplotlib.use("TkAgg") # Allows for Tk use rather than the standard
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
+from matplotlib.dates import (YEARLY, DateFormatter,
+                              rrulewrapper, RRuleLocator, drange)
 
 import numpy
+import datetime
 import seaborn
 import pandas
 from pandas.plotting import register_matplotlib_converters
@@ -50,14 +53,16 @@ class GrapherWindow(tk.Frame):
         graphArea = self.graphArea
         if self.checkNumbers(plotData, stockNames):
             graphArea.clear()
-            time = plotData['Date']
+            dates = plotData['Date']
 
             for S in stockNames:
-                graphArea.plot_date(time, plotData[S], label = S)
+                graphArea.plot_date(dates, plotData[S], label = S)
 
             graphArea.set(title = predictionName)
-            graphArea.set_xlabel("Time (Days)")
+            graphArea.legend(framealpha = 1, frameon = True)
+            graphArea.set_xlabel("Date")
             graphArea.set_ylabel("Price (USD)")
+            graphArea.xaxis.set_major_locator(plt.MaxNLocator(10))
             graphArea.grid()
 
             self.canvas.draw()
