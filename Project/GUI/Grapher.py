@@ -7,7 +7,7 @@ from matplotlib.dates import (YEARLY, DateFormatter,
                               rrulewrapper, RRuleLocator, drange)
 
 import numpy
-import datetime
+from datetime import datetime
 import seaborn
 import pandas
 from pandas.plotting import register_matplotlib_converters
@@ -53,10 +53,12 @@ class GrapherWindow(tk.Frame):
         graphArea = self.graphArea
         if self.checkNumbers(plotData, stockNames):
             graphArea.clear()
-            dates = plotData['Date']
+            dates = []
+            for d in plotData['Date']:
+                dates.append(datetime.strptime(d, '%Y-%m-%d'))
 
             for S in stockNames:
-                graphArea.plot_date(dates, plotData[S], label = S)
+                graphArea.plot(dates, plotData[S], label = S)
 
             graphArea.set(title = predictionName)
             graphArea.legend(framealpha = 1, frameon = True)
