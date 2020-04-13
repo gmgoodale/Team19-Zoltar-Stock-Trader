@@ -66,15 +66,27 @@ class DNNWindow(tk.Frame):
         self.modelIDText.delete(1.0, END)
         self.modelIDText.insert(END, modelID)
 
-    def setModelRatio(self, modelHistory):
-        total = modelHistory.len()
+    def setModelRatio(self, dataFrame, stockNames):
+        # Summing True Predictions
+        total = stockNames.len() * self.getPredictionResults(dataFrame, stockNames[0]).len() # Stocks * (Pre / Stocks)
         numCorrect = 0
-        for i in modelHistory:
-            if i == 1:
-                numCorrect = numCorrect + 1
+        for S in stockNames:
+            for Prediction in self.getPredictionResults(S):
+                if bool(Prediction):
+                    numCorrect += 1
 
         self.modelRatioText.delete(1.0, END)
         ratioString = str(numCorrect) + "/" + str(total)
         self.modelRatioText.insert(END, ratioString)
 
-        self.drawPredictionHistory(modelHistory, total)
+        for S in stockNames:
+            modelPredictions =
+            self.drawPredictionHistory(modelHistory, total)
+
+    def getPredictionHistory(dataFrame, stockName):
+        return dataFrame["Predictions " + stockName]
+
+    def getPredictionResults(dataFrame, stockName):
+        return dataFrame["Correct " + stockName]
+
+    def getModelForStock(self, stockName):

@@ -87,6 +87,7 @@ class UserInterface(tk.Tk):
 
         #=============================== Generating File ==================================
         allData = pandas.DataFrame()
+
         for stock in stockNames:
             # Get the stock data from a CSV and put it in a data frame for editing
             stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData_40Years.csv"
@@ -102,6 +103,7 @@ class UserInterface(tk.Tk):
             # Then add it to the larger dataframe
             allData = pandas.concat([allData, csvData], axis=1, sort=False)
 
+        allData['stockNames'] = stockNames
         # Save the combined, modified, data frames
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
 
@@ -163,9 +165,19 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv"):
+    def displayGraph(self, fileName = "TestData.csv"):
+        try:
+            data = pandas.read_csv("Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName)
+
+        except:
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
+            return False
+
         frame = self.frames[Grapher.GrapherWindow]
         frame.generateGraph(fileName = csvFileName)
+
+        frame = self.frames[DNNPage.DNNWindow]
+        frame.setModelRatio(data, stockNames)
 
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
@@ -194,9 +206,8 @@ class UserInterface(tk.Tk):
         self.showFrame(DevToolsPage.DevToolsWindow)
 
 
-
 # When Window.py is run then it is assumed the program should run.
 
 zoltar = UserInterface()
-zoltar.geometry("1280x720")
+zoltar.geometry("1920x1080")
 zoltar.mainloop()
