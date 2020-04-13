@@ -43,38 +43,52 @@ class DNNWindow(tk.Frame):
         self.modelRatioText.grid(row = widgetRow, column = widgetCol + 1, sticky = tk.W, padx = 2,
                                  pady = 5)
 
-    def drawPredictionHistory(self, modelHistory, total):
-        widgetRow = 2
+    def drawPredictionHistory(self, dataFrame, stockName, widgetRow):
         widgetCol = 0
-
+        barLabel = tk.Label(self, text = stockName + " Prediction Accuracy Over Time", font = SMALL_FONT)
+        barLabel.grid(row = widgetRow, column = widgetCol, columnspan = 10, sticky = tk.S, padx = 5. pady = 5)
         bar = tk.Frame(self)
         for i in range(0, total):
             bar.grid_columnconfigure(i, weight = 1)
             if modelHistory[i] == 1:
-                drawColoredCell(bar, green)
+                drawColoredCell(bar, "green", i)
 
             else:
-                drawColoredCell(bar, red)
+                drawColoredCell(bar, "red", i)
 
-    def drawColoredCell(bar, color):
-        cell = tk.Frame(bar)
+        bar.grid(row = widgetRow + 1, column = widgetCol, columnspan = 10, sticky = tk.N, padx = 5, pady = 0)
+
+    def drawColoredCell(bar, color, col):
+        cell = tk.Frame(bar, bg = color)
+        cell.grid(column = col, row = 0, padx = 0, pady = 0)
         # Change the background of this to red or green
 
 
     #============================ Field Methods ==================================================
     def setModelID(self, modelID):
-        self.modelIDText.delete(1.0, END)
-        self.modelIDText.insert(END, modelID)
+        self.modelIDText.delete(1.0, "end")
+        self.modelIDText.insert("end", modelID)
 
-    def setModelRatio(self, modelHistory):
-        total = modelHistory.len()
+    def setModelRatio(self, dataFrame, stockNames):
+        # Summing True Predictions
+        total = len(stockNames) * len(self.getPredictionResults(dataFrame, stockNames[0])) # Stocks * (Pre / Stocks)
         numCorrect = 0
-        for i in modelHistory:
-            if i == 1:
-                numCorrect = numCorrect + 1
+        for S in stockNames:
+            for Prediction in self.getPredictionResults(S):
+                if bool(Prediction):
+                    numCorrect += 1
 
-        self.modelRatioText.delete(1.0, END)
+        self.modelRatioText.delete(1.0, "end")
         ratioString = str(numCorrect) + "/" + str(total)
-        self.modelRatioText.insert(END, ratioString)
+        self.modelRatioText.insert("end", ratioString)
 
-        self.drawPredictionHistory(modelHistory, total)
+        row = 2
+        for S in stockNames:
+            self.drawPredictionHistory(dataFrame, S, row)
+            row += 2
+
+    def getPredictionHistory(self, dataFrame, stockName):
+        return dataFrame["Predictions " + stockName]
+
+    def getPredictionResults(self, dataFrame, stockName):
+        return dataFrame["Correct " + stockName]

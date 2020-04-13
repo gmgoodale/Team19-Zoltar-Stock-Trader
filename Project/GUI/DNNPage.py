@@ -88,5 +88,3 @@ class DNNWindow(tk.Frame):
 
     def getPredictionResults(dataFrame, stockName):
         return dataFrame["Correct " + stockName]
-
-    def getModelForStock(self, stockName):

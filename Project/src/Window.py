@@ -233,10 +233,11 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.generateGraph(plotData = data, predictionName = predictionName,
                             stockNames = stockNames)
-        """
+
         frame = self.frames[DNNPage.DNNWindow]
-        frame.setModelRatio(data, )
-        """
+        frame.setModelID(predictionName)
+        frame.setModelRatio(dataFrame = data, stockNames = stockNames)
+
 
     def getStockNames(self, dataFrame):
         stockNames = []
