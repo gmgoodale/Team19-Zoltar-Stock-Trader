@@ -174,7 +174,7 @@ class UserInterface(tk.Tk):
             return False
 
         frame = self.frames[Grapher.GrapherWindow]
-        frame.generateGraph(fileName = csvFileName)
+        frame.generateGraph(fileName = csvFileName, dataFrame = data, )
 
         frame = self.frames[DNNPage.DNNWindow]
         frame.setModelRatio(data, stockNames)

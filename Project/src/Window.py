@@ -204,10 +204,24 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv"):
-        frame = self.frames[Grapher.GrapherWindow]
-        frame.generateGraph(fileName = csvFileName)
+    def displayGraph(self, fileName = "TestData.csv"):
+        try:
+            data = pandas.read_csv("Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName)
 
+        except:
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
+            return False
+
+        # The prediction name is just the file name
+        predictionName = os.path.splitext(fileName)[0]
+
+        frame = self.frames[Grapher.GrapherWindow]
+        frame.generateGraph(plotData = data, predictionName = predictionName,
+                            stockNames = ["AAPL", "AMD"])
+        """
+        frame = self.frames[DNNPage.DNNWindow]
+        frame.setModelRatio(data, )
+        """
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
         try:

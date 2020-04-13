@@ -43,9 +43,7 @@ class GrapherWindow(tk.Frame):
 
 
     #========================= Graph Functions ==============================
-    def generateGraph(self, fileName, dataFrame, stockName):        
-        # The prediction name is just the file name
-        predictionName = os.path.splitext(fileName)
+    def generateGraph(self, predictionName, plotData, stockNames):
 
         graphArea = self.graphArea
         if self.checkNumbers(plotData, stockNames):

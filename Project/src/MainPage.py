@@ -14,7 +14,7 @@ class MainWindow(tk.Frame):
         label.grid(column = 0, row = 0, pady = 20, padx = 10)
 
         loadButton = tk.Button(self, text = "Load to Graph", font = SMALL_FONT,
-                               command = lambda: controller.displayGraph(csvFileName = self.selectionBox.get()))
+                               command = lambda: controller.displayGraph(fileName = self.selectionBox.get()))
         loadButton.grid(column = 0, row = 3, pady = 5)
 
         self.drawComboBox(parent, controller)
