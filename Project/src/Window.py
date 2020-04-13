@@ -122,6 +122,7 @@ class UserInterface(tk.Tk):
             allData = pandas.concat([allData, predictionDF], axis=1, sort=False)
             allData = allData.fillna(0)
 
+        allData['stockNames'] = stockNames
         # Save the combined, modified, data frames
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
 
@@ -209,9 +210,19 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv"):
+    def displayGraph(self, fileName = "TestData.csv"):
+        try:
+            data = pandas.read_csv("Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName)
+
+        except:
+            print("ERROR: when reading csv file {}; aborting.".format(fileName))
+            return False
+
         frame = self.frames[Grapher.GrapherWindow]
-        frame.generateGraph(fileName = csvFileName)
+        frame.generateGraph(fileName = csvFileName, dataFrame = data, )
+
+        frame = self.frames[DNNPage.DNNWindow]
+        frame.setModelRatio(data, stockNames)
 
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
