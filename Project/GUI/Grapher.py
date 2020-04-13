@@ -16,6 +16,8 @@ from numpy.random import randint
 import tkinter as tk
 from tkinter import ttk
 
+import os
+
 LARGE_FONT = ("Verdana", 12, "bold")
 
 register_matplotlib_converters()
@@ -44,12 +46,14 @@ class GrapherWindow(tk.Frame):
     #========================= Graph Functions ==============================
     def generateGraph(self, fileName, stockNames, predictionName):
         # 'usecols' can be added to read_csv if multiple cols are present in file
+        plotData = pandas.read_csv("Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName)
+        '''
         try:
             plotData = pandas.read_csv(fileName)
 
         except:
             print("ERROR: when reading csv file {}; aborting.".format(fileName))
-            return False
+            return False'''
         graphArea = self.graphArea
         if self.checkNumbers(plotData, stockNames):
             graphArea.clear()

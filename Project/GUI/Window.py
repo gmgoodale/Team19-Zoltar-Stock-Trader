@@ -73,7 +73,7 @@ class UserInterface(tk.Tk):
         #============================== Collecting Variables ===============================
         frame = self.frames[NewPredictionPage.NewPredictionWindow]
 
-        stockNames = frame.getCurrentlySelectedStocks()
+        self.stockNames = frame.getCurrentlySelectedStocks()
         startDate = frame.getStartDate()
         endDate = frame.getEndDate()
         predictionName = frame.getName()
@@ -98,7 +98,7 @@ class UserInterface(tk.Tk):
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
 
     def getAvailableCSVs(self):
-        fileNames = ["TestData.csv", "TST2.csv"]
+        fileNames = os.listdir("Data" + os.sep + "Saved_Stock_Data")
         return fileNames
 
     def appendModelResults(self, fileName, modelResults):
@@ -152,7 +152,8 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv", stockNames = ["AAPL", "AMD"], predictionName = ""):
+    def displayGraph(self, csvFileName = "TestData.csv", stockNames = [], predictionName = ""):
+        stockNames = self.stockNames
         frame = self.frames[Grapher.GrapherWindow]
         frame.generateGraph(fileName = csvFileName, stockNames = stockNames, predictionName = predictionName)
 
