@@ -183,7 +183,7 @@ class UserInterface(tk.Tk):
     def toDevTools(self):
         self.showFrame(DevToolsPage.DevToolsWindow)
 
-
+    
 
 # When Window.py is run then it is assumed the program should run.
 
