@@ -220,13 +220,25 @@ class UserInterface(tk.Tk):
         # The prediction name is just the file name
         predictionName = os.path.splitext(fileName)[0]
 
+        stockNames = self.getStockNames(data)
+
         frame = self.frames[Grapher.GrapherWindow]
         frame.generateGraph(plotData = data, predictionName = predictionName,
-                            stockNames = ["AAPL", "AMD"])
+                            stockNames = stockNames)
         """
         frame = self.frames[DNNPage.DNNWindow]
         frame.setModelRatio(data, )
         """
+
+    def getStockNames(self, dataFrame):
+        stockNames = []
+        for col in dataFrame.columns:
+            if len(col) < 5:
+                if col != "Date":
+                    stockNames.append(col)
+
+        return stockNames
+
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
         try:
