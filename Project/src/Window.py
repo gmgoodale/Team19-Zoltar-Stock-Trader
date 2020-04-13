@@ -115,6 +115,7 @@ class UserInterface(tk.Tk):
                 predictionDates.pop()
             predictionDF["Date"] = predictionDates
             predictionDF = predictionDF.set_index("Date")
+            print(predictionDF["Prediction " + stock])
             allData = pandas.concat([allData, predictionDF], axis=1, sort=False)
 
         # Save the combined, modified, data frames
