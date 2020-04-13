@@ -84,7 +84,7 @@ class UserInterface(tk.Tk):
         allData = pandas.DataFrame()
         for stock in stockNames:
             # Get the stock data from a CSV and put it in a data frame for editing
-            stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData.csv"
+            stockPath = "Data" + os.sep + "Tickers" + os.sep + stock + "_PriceData_40Years.csv"
             csvData = pandas.read_csv(stockPath)
             # Reanme the thrid colunm to the stock name
             csvData.columns = ["Date", "Open", stock]
@@ -124,7 +124,9 @@ class UserInterface(tk.Tk):
         return True
 
     def getAvailableStockNames(self):
-        stockNames = ["AAPL", "AAP", "MMM"]
+        stockNames = ["A", "AAP", "ABBV", "ABT", "ACN", "ADBE", "AES", "AET", "AFL",
+                                    "AKAM", "ALB", "ALK", "AMD", "AMG", "AOS", "APD",
+                                    "ARE", "ATVI", "AYI", "MMM"]
         return stockNames
 
     def getTickerCSVFromName(self, stockName):
