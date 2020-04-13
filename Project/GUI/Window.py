@@ -91,7 +91,7 @@ class UserInterface(tk.Tk):
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
 
     def getAvailableCSVs(self):
-        fileNames = ["TestData.csv", "TST2.csv"]
+        fileNames = os.listdir("Data" + os.sep + "Saved_Stock_Data")
         return fileNames
 
     def appendModelResults(self, fileName, modelResults):
