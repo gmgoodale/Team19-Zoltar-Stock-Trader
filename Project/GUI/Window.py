@@ -73,7 +73,7 @@ class UserInterface(tk.Tk):
         #============================== Collecting Variables ===============================
         frame = self.frames[NewPredictionPage.NewPredictionWindow]
 
-        self.stockNames = frame.getCurrentlySelectedStocks()
+        stockNames = frame.getCurrentlySelectedStocks()
         startDate = frame.getStartDate()
         endDate = frame.getEndDate()
         predictionName = frame.getName()
@@ -92,6 +92,9 @@ class UserInterface(tk.Tk):
             del csvData["Open"]
             csvData["Date"] = pandas.to_datetime(csvData["Date"])
             csvData = csvData.set_index("Date")
+            # The grapher has trouble with large floating numbers so truncate here
+            csvData[stock] = csvData[stock].round(decimals = 2)
+            # Then add it to the larger dataframe
             allData = pandas.concat([allData, csvData], axis=1, sort=False)
 
         # Save the combined, modified, data frames
@@ -152,10 +155,9 @@ class UserInterface(tk.Tk):
         frame = self.frames[Grapher.GrapherWindow]
         frame.GrapherWindow.changeLabel(newLabel)
 
-    def displayGraph(self, csvFileName = "TestData.csv", stockNames = [], predictionName = ""):
-        stockNames = self.stockNames
+    def displayGraph(self, csvFileName = "TestData.csv"):
         frame = self.frames[Grapher.GrapherWindow]
-        frame.generateGraph(fileName = csvFileName, stockNames = stockNames, predictionName = predictionName)
+        frame.generateGraph(fileName = csvFileName)
 
     #======================= Navigation Methods ========================
     def showFrame(self, cont):
@@ -183,7 +185,7 @@ class UserInterface(tk.Tk):
     def toDevTools(self):
         self.showFrame(DevToolsPage.DevToolsWindow)
 
-    
+
 
 # When Window.py is run then it is assumed the program should run.
 

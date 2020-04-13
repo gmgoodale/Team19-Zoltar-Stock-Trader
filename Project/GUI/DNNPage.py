@@ -71,7 +71,7 @@ class DNNWindow(tk.Frame):
         numCorrect = 0
         for i in modelHistory:
             if i == 1:
-                numCorrect++
+                numCorrect = numCorrect + 1
 
         self.modelRatioText.delete(1.0, END)
         ratioString = str(numCorrect) + "/" + str(total)

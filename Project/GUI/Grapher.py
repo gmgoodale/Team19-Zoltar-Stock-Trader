@@ -44,16 +44,22 @@ class GrapherWindow(tk.Frame):
 
 
     #========================= Graph Functions ==============================
-    def generateGraph(self, fileName, stockNames, predictionName):
+    def generateGraph(self, fileName):
         # 'usecols' can be added to read_csv if multiple cols are present in file
-        plotData = pandas.read_csv("Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName)
-        '''
         try:
-            plotData = pandas.read_csv(fileName)
+            plotData = pandas.read_csv("Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName)
 
         except:
             print("ERROR: when reading csv file {}; aborting.".format(fileName))
-            return False'''
+            return False
+
+        stockNames = plotData.columns.tolist()
+        # Get rid of the first index which is the date column. Alternatively,
+        # the date column could  be used as an index
+        del stockNames[0]
+        # The prediction name is just the file name
+        predictionName = os.path.splitext(fileName)
+
         graphArea = self.graphArea
         if self.checkNumbers(plotData, stockNames):
             graphArea.clear()
