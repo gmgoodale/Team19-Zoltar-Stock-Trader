@@ -104,6 +104,8 @@ class UserInterface(tk.Tk):
             self.createStockModel(stock, predictionName, predictionTimeFrame)
             numpyData = self.sliceDataFrame(csvData[startDate:endDate], predictionTimeFrame)
             predictionArr = self.getPredictionsFromModel(predictionName, numpyData)
+            for num in predictionArr:
+                num = num*10
             predictionDF = pandas.DataFrame(predictionArr)
             predictionDF.columns = ["Prediction " + stock]
             print(predictionDF)
@@ -112,10 +114,13 @@ class UserInterface(tk.Tk):
             predictionDates = []
             for date in dates[::predictionTimeFrame]:
                 predictionDates.append(date)
+            if (len(predictionDates)%2 != 0):
+                predictionDates.pop()
             print(predictionDates)
             predictionDF["Date"] = predictionDates
             predictionDF = predictionDF.set_index("Date")
             allData = pandas.concat([allData, predictionDF], axis=1, sort=False)
+            allData = allData.fillna(0)
 
         # Save the combined, modified, data frames
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
