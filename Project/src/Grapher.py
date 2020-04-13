@@ -43,11 +43,7 @@ class GrapherWindow(tk.Frame):
 
 
     #========================= Graph Functions ==============================
-    def generateGraph(self, fileName, dataFrame):
-        stockNames = dataFrame['stockNames']
-
-        # The prediction name is just the file name
-        predictionName = os.path.splitext(fileName)
+    def generateGraph(self, predictionName, plotData, stockNames):
 
         graphArea = self.graphArea
         if self.checkNumbers(plotData, stockNames):
@@ -56,7 +52,7 @@ class GrapherWindow(tk.Frame):
             for d in plotData['Date']:
                 dates.append(datetime.strptime(d, '%Y-%m-%d'))
 
-            for S in dataFrame['stockNames']:
+            for S in stockNames:
                 graphArea.plot(dates, plotData[S], label = S)
 
             graphArea.set(title = predictionName)
