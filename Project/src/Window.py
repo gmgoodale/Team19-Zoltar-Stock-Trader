@@ -105,12 +105,17 @@ class UserInterface(tk.Tk):
             numpyData = self.sliceDataFrame(csvData[startDate:endDate], predictionTimeFrame)
             predictionArr = self.getPredictionsFromModel(predictionName, numpyData)
             predictionDF = pandas.DataFrame(predictionArr)
+            predictionDF.columns = ["Prediction " + stock]
+            print(predictionDF)
             # Now we need to tie the predictions to dates
-            dates = list(csvData.index)
+            dates = list(csvData[startDate:endDate].index)
             predictionDates = []
-            for i in range(0, len(dates), predictionTimeFrame):
-                predictionDates.append(dates[i])
-
+            for date in dates[::predictionTimeFrame]:
+                predictionDates.append(date)
+            print(predictionDates)
+            predictionDF["Date"] = predictionDates
+            predictionDF = predictionDF.set_index("Date")
+            allData = pandas.concat([allData, predictionDF], axis=1, sort=False)
 
         # Save the combined, modified, data frames
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
