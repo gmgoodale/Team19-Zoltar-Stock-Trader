@@ -73,6 +73,7 @@ class GrapherWindow(tk.Frame):
         try:
             for S in stockNames:
                 if min(data[S]) < 0:
+                    print(S)
                     return False
                 return True
         except:
