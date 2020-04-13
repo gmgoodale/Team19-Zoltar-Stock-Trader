@@ -56,8 +56,11 @@ class DNNWindow(tk.Frame):
             else:
                 drawColoredCell(bar, red)
 
-    def drawColoredCell(bar, green):
+    def drawColoredCell(bar, color):
         cell = tk.Frame(bar)
+        # Change the background of this to red or green
+
+
     #============================ Field Methods ==================================================
     def setModelID(self, modelID):
         self.modelIDText.delete(1.0, END)

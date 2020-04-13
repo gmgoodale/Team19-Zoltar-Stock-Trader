@@ -140,5 +140,19 @@ class NewPredictionWindow(tk.Frame):
 
     def savePrediction(self):
         # grabs the selected stocks to a list
-        selectedStocks = list(self.selectedStockListBox.get(0, tk.END))
+        stockNames = list(self.selectedStockListBox.get(0, tk.END))
+        startDate = self.getStartDate()
+        endDate = self.getEndDate()
+        daysToAnalyze = self.spinBox.get()
+
         return
+
+class Prediction():
+    __init__(startDate, endDate, stockNames, modelPredictions, daysToAnalyze):
+        self.stardDate = startDate
+        self.endDate = endDate
+        self.stockNames = stockNames
+        self.daysToAnalyze = daysToAnalyze
+
+    def addModelPredictions(self, modelOut):
+        self.modelOut = modelOut
