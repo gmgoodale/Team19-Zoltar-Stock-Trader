@@ -5,7 +5,6 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from matplotlib.dates import (YEARLY, DateFormatter,
                               rrulewrapper, RRuleLocator, drange)
-
 import numpy
 from datetime import datetime
 import seaborn
