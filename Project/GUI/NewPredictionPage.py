@@ -140,7 +140,14 @@ class NewPredictionWindow(tk.Frame):
 
     def savePrediction(self):
         # grabs the selected stocks to a list
+<<<<<<< HEAD
 
+=======
+        stockNames = list(self.selectedStockListBox.get(0, tk.END))
+        startDate = self.getStartDate()
+        endDate = self.getEndDate()
+        daysToAnalyze = self.spinBox.get()
+>>>>>>> 7248dd3527e163a6df51bfb3639a20e55d3ae940
 
         return
 
