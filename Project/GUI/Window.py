@@ -7,6 +7,7 @@ import MainPage
 import NewPredictionPage
 import AddModelPage
 import DevToolsPage
+import DNNPage
 
 from pathlib import Path
 
@@ -36,6 +37,7 @@ class UserInterface(tk.Tk):
         container = tk.Frame(self)
         container.pack(side = "top", fill = "both", expand = True)
         container.grid_rowconfigure(0, weight = 1)
+        container.grid_rowconfigure(1, weight = 1)
         container.grid_columnconfigure(0, weight = 3) # Weights the graph to be larger
         container.grid_columnconfigure(1, weight = 1)
 
@@ -51,11 +53,16 @@ class UserInterface(tk.Tk):
 
             frame.grid(row = 0, column = 1, sticky = "nsew")
 
+        frame = DNNPage.DNNWindow(container, self)
+        self.frames[DNNPage.DNNWindow] = frame
+
+        frame.grid(row = 1, column = 1, sticky = "nsew")
+
         # Only 1 Left-side frame, but same function as loop
         frame = Grapher.GrapherWindow(container, self)
         self.frames[Grapher.GrapherWindow] = frame
 
-        frame.grid(row = 0, column = 0, sticky = "nsew")
+        frame.grid(row = 0, rowspan = 2, column = 0, sticky = "nsew")
 
         self.showFrame(MainPage.MainWindow) # Initial page to show
 
