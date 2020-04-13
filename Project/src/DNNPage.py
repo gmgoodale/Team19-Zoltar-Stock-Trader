@@ -63,18 +63,29 @@ class DNNWindow(tk.Frame):
 
     #============================ Field Methods ==================================================
     def setModelID(self, modelID):
-        self.modelIDText.delete(1.0, END)
-        self.modelIDText.insert(END, modelID)
+        self.modelIDText.delete(1.0, "end")
+        self.modelIDText.insert("end", modelID)
 
-    def setModelRatio(self, modelHistory):
-        total = modelHistory.len()
+    def setModelRatio(self, dataFrame, stockNames):
+        # Summing True Predictions
+        total = len(stockNames) * len(self.getPredictionResults(dataFrame, stockNames[0])) # Stocks * (Pre / Stocks)
         numCorrect = 0
-        for i in modelHistory:
-            if i == 1:
-                numCorrect = numCorrect + 1
+        for S in stockNames:
+            for Prediction in self.getPredictionResults(S):
+                if bool(Prediction):
+                    numCorrect += 1
 
-        self.modelRatioText.delete(1.0, END)
+        self.modelRatioText.delete(1.0, "end")
         ratioString = str(numCorrect) + "/" + str(total)
         self.modelRatioText.insert(END, ratioString)
 
-        self.drawPredictionHistory(modelHistory, total)
+        row = 2
+        for S in stockNames:
+            self.drawPredictionHistory(dataFrame, row)
+            row += 1
+
+    def getPredictionHistory(self, dataFrame, stockName):
+        return dataFrame["Predictions " + stockName]
+
+    def getPredictionResults(self, dataFrame, stockName):
+        return dataFrame["Correct " + stockName]
