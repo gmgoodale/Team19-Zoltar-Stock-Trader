@@ -46,7 +46,7 @@ class DNNWindow(tk.Frame):
     def drawPredictionHistory(self, dataFrame, stockName, widgetRow):
         widgetCol = 0
         barLabel = tk.Label(self, text = stockName + " Prediction Accuracy Over Time", font = SMALL_FONT)
-        barLabel.grid(row = widgetRow, column = widgetCol, columnspan = 10, sticky = tk.S, padx = 5. pady = 5)
+        barLabel.grid(row = widgetRow, column = widgetCol, columnspan = 10, sticky = tk.S, padx = 5, pady = 5)
         bar = tk.Frame(self)
         for i in range(0, total):
             bar.grid_columnconfigure(i, weight = 1)
