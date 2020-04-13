@@ -66,12 +66,12 @@ class UserInterface(tk.Tk):
         #============================== Collecting Variables ===============================
         frame = self.frames[NewPredictionPage.NewPredictionWindow]
 
-        stockNames = frame.currentlySelectedStocks()
+        stockNames = frame.getCurrentlySelectedStocks()
         startDate = frame.getStartDate()
         endDate = frame.getEndDate()
         predictionName = frame.getName()
 
-        path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + fileName + ".csv"
+        path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + predictionName + ".csv"
 
         #=============================== Generating File ==================================
         allData = pandas.DataFrame()

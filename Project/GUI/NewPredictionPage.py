@@ -37,8 +37,8 @@ class NewPredictionWindow(tk.Frame):
         nameFieldLabel.grid(column = 0, row = 1, sticky = tk.W, pady = 10, padx = 10)
 
         newName = tk.StringVar()
-        nameField = tk.Entry(self, width = 20, textvariable = newName, font = SMALL_FONT,)
-        nameField.grid(column = 1, columnspan = 2, row = 1, padx = 10, pady = 10, sticky = tk.W)
+        self.nameField = tk.Entry(self, width = 20, textvariable = newName, font = SMALL_FONT,)
+        self.nameField.grid(column = 1, columnspan = 2, row = 1, padx = 10, pady = 10, sticky = tk.W)
 
     def drawAvailableListBox(self, parent, controller):
         availableStockLabel = tk.Label(self, text = "Available Stocks", font = SMALL_FONT)
@@ -130,7 +130,7 @@ class NewPredictionWindow(tk.Frame):
         return list(self.selectedStockListBox.get(0, tk.END))
 
     def getStartDate(self):
-        return self.startDateEntry.get_date()
+        return self.initialDateEntry.get_date()
 
     def getEndDate(self):
         return self.endDateEntry.get_date()
