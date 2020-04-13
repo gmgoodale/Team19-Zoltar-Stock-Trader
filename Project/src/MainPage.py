@@ -8,6 +8,9 @@ class MainWindow(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self,parent)
+
+        self.controller = controller
+
         self.grid_columnconfigure(0, weight = 1)
 
         label = tk.Label(self, text="Zoltar Stock Trader Main Page", font = LARGE_FONT)
@@ -31,13 +34,13 @@ class MainWindow(tk.Frame):
                             command = lambda: controller.toDevTools())
         toDevToolsButton.grid(column = 0, row = 6, pady = 50)
 
-    def updateComboBox(self, controller):
-        self.selectionBox['values'] = controller.getAvailableCSVs()
+    def updateComboBox(self):
+        self.selectionBox['values'] = self.controller.getAvailableCSVs()
 
     def drawComboBox(self, parent, controller):
         comboBoxLabel = tk.Label(self, text = "Available Predictions", font = SMALL_FONT)
         comboBoxLabel.grid(column = 0, row = 1, padx = 10, pady = 0)
         self.comboBoxSelection = tk.StringVar()
         self.selectionBox = ttk.Combobox(self, width = 20, textvariable = self.comboBoxSelection)
-        self.selectionBox['postcommand'] = self.updateComboBox(controller)
+        self.selectionBox['postcommand'] = self.updateComboBox
         self.selectionBox.grid(column = 0, row = 2, padx = 10, pady = 0, sticky = tk.N)
