@@ -15,9 +15,10 @@ import tkinter as tk
 from tkinter import ttk
 
 import pandas
-import os
 
-import Model
+import os
+import Model as md
+import numpy as np
 
 LARGE_FONT = ("Verdana", 12, "bold")
 SMALL_FONT = ("Verdana", 10)
@@ -78,10 +79,7 @@ class UserInterface(tk.Tk):
         startDate = frame.getStartDate()
         endDate = frame.getEndDate()
         predictionName = frame.getName()
-        predictionWindow = frame.getPredictionWindow()
-
-        print("someting")
-        print(predictionWindow)
+        predictionTimeFrame = int(frame.getPredictionTimeFrame())
 
         path = "Data" + os.sep + "Saved_Stock_Data" + os.sep + predictionName + ".csv"
 
@@ -102,9 +100,47 @@ class UserInterface(tk.Tk):
             # Then add it to the larger dataframe
             allData = pandas.concat([allData, csvData], axis=1, sort=False)
 
+            # Now lets create a model and get predictions from it
+            self.createStockModel(stock, predictionName, predictionTimeFrame)
+            numpyData = self.sliceDataFrame(csvData[startDate:endDate], predictionTimeFrame)
+            predictionArr = self.getPredictionsFromModel(predictionName, numpyData)
+            predictionDF = pandas.DataFrame(predictionArr)
+            # Now we need to tie the predictions to dates
+            dates = list(csvData.index)
+            predictionDates = []
+            for i in range(0, len(dates), predictionTimeFrame):
+                predictionDates.append(dates[i])
+
+
         # Save the combined, modified, data frames
         allData[startDate:endDate].to_csv(path, mode='a', header = True)
 
+    def createStockModel(self, stock, predictionName, predictionTimeFrame):
+        model = md.Model()
+        model.realData(predictionTimeFrame, stock)
+        model.createBasicModel(predictionTimeFrame)
+        model.compileModel()
+        # fixed number of epochs
+        model.trainModel(100)
+        model.evalModel()
+        model.saveCurrentModel(predictionName)
+
+    def getPredictionsFromModel(self, predictionName, testData):
+        model = md.Model()
+        model.loadModel(predictionName)
+        return model.predictFromCurrentModel(testData)
+
+    # This takes a data frame with a date column and stock column and slices the
+    # data up into a 2-D numpy array to feed to the model
+    def sliceDataFrame(self, df, predictionTimeFrame):
+        arr = df.to_numpy()
+        numRows = int(np.size(arr,0)/predictionTimeFrame)
+        outputArr = np.zeros([numRows, predictionTimeFrame])
+
+        for i in range(numRows):
+            outputArr[i] = np.copy(arr[i*predictionTimeFrame:((i+1)*predictionTimeFrame), 0])
+
+        return outputArr
 
     def getAvailableCSVs(self):
         fileNames = os.listdir("Data" + os.sep + "Saved_Stock_Data")

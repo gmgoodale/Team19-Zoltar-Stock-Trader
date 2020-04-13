@@ -16,7 +16,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 class Model:
 
     def __init__(self):
-        self.dh = DataHandler.DataHandler();
+        self.dh = DataHandler.DataHandler()
 
     def createDummyData(self, setSize, numSets):
         self.trainingData = np.random.random((numSets, setSize))
@@ -101,7 +101,7 @@ class Model:
         self.model = model_from_yaml(yamlLoadedModel)
         self.model.load_weights(path + os.sep + fileName + ".h5")
 
-    def main(self):
+    '''def main(self):
         numDays = 100
         fileName = "testModel"
         self.realData(numDays, 'GOOG')
@@ -111,8 +111,8 @@ class Model:
         self.evalModel()
         self.saveCurrentModel(fileName)
         self.loadModel(fileName)
-        print(self.predictFromCurrentModel(self.testData))
+        print(self.predictFromCurrentModel(self.testData))'''
 
-if __name__== "__main__":
+'''if __name__== "__main__":
     md = Model()
-    md.main()
+    md.main()'''

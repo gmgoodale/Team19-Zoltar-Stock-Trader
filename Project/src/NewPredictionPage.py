@@ -138,5 +138,5 @@ class NewPredictionWindow(tk.Frame):
     def getName(self):
         return self.nameField.get()
 
-    def getPredictionWindow(self):
+    def getPredictionTimeFrame(self):
         return self.spinBox.get()
