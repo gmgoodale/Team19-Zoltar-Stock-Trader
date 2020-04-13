@@ -105,7 +105,7 @@ class UserInterface(tk.Tk):
             numpyData = self.sliceDataFrame(csvData[startDate:endDate], predictionTimeFrame)
             predictionArr = self.getPredictionsFromModel(predictionName, numpyData)
             for num in predictionArr:
-                num = num*10
+                num = num*50
             predictionDF = pandas.DataFrame(predictionArr)
             predictionDF.columns = ["Prediction " + stock]
             print(predictionDF)
