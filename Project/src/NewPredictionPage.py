@@ -13,7 +13,7 @@ class NewPredictionWindow(tk.Frame):
         self.grid_columnconfigure(2, weight = 1)
 
         label = tk.Label(self, text="New Prediction", font = LARGE_FONT)
-        label.grid(column = 0, columnspan = 3, row = 0, sticky = tk.N,
+        label.grid(column = 0, columnspan = 10, row = 0, sticky = tk.N,
                    pady = 10)
 
         self.drawNameField(parent, controller)
@@ -25,11 +25,11 @@ class NewPredictionWindow(tk.Frame):
 
         saveButton = tk.Button(self, text = "Save Prediction", font = SMALL_FONT,
                                command = lambda: controller.saveNewPrediction())
-        saveButton.grid(column = 2, columnspan = 10, row = 7, sticky = tk.N, padx = 10, pady = 20)
+        saveButton.grid(column = 0, columnspan = 10, row = 10, sticky = tk.N, padx = 10, pady = 20)
 
         button1 = tk.Button(self, text = "Back To Main Page", font = SMALL_FONT,
                             command = lambda: controller.toHome())
-        button1.grid(column = 0, columnspan = 10, row = 10, sticky = tk.S, padx = 10, pady = 20)
+        button1.grid(column = 0, columnspan = 10, row = 100, sticky = tk.S, padx = 10, pady = 20)
 
     #======================================= Draw Functions ========================================
     def drawNameField(self, parent, controller):
@@ -76,10 +76,10 @@ class NewPredictionWindow(tk.Frame):
 
     def drawSpinBox(self, parent, controller):
         spinBoxLabel = tk.Label(self, text = "# Days to Analyze", font = SMALL_FONT)
-        spinBoxLabel.grid(column = 2, row = 2, sticky = tk.E + tk.S, padx = 10, pady = 3)
+        spinBoxLabel.grid(column = 2, row = 3, sticky = tk.E + tk.S, padx = 10, pady = 3)
 
         self.spinBox = ttk.Spinbox(self, width = 10, from_ = 0, to = 100)
-        self.spinBox.grid(column = 2, row = 3, sticky = tk.E, padx = 10, pady = 3)
+        self.spinBox.grid(column = 2, row = 4, sticky = tk.E, padx = 10, pady = 3)
 
     def drawIntitialDateEntry(self, parent, controller):
         widgetRow = 8
