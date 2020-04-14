@@ -85,11 +85,11 @@ class DNNWindow(tk.Frame):
         ratioString = str(numCorrect) + "/" + str(total)
         self.modelRatioText.insert("end", ratioString)
 
-        row = 2
+        row = 3
         for S in stockNames:
             predictions = df["Prediction " + S].tolist()
             self.drawPredictionHistory(predictions, S, row)
-            row = row + 2
+            row = row + 2 
 
     def getPredictionHistory(self, dataFrame, stockName):
         return dataFrame["Predictions " + stockName]
