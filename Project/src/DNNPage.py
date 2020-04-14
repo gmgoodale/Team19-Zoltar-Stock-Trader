@@ -48,8 +48,9 @@ class DNNWindow(tk.Frame):
         barLabel = tk.Label(self, text = stockName + " Prediction Accuracy Over Time", font = SMALL_FONT)
         barLabel.grid(row = widgetRow, column = widgetCol, columnspan = 10, sticky = tk.S, padx = 5, pady = 5)
         bar = tk.Frame(self)
+        bar.grid_rowconfigure(0, minsize = 10)
         for i in range(0, len(predictions)):
-            bar.grid_columnconfigure(i, weight = 1)
+            bar.grid_columnconfigure(i, weight = 1, minsize = 30)
             if predictions[i] == 1:
                 self.drawColoredCell(bar, "green", i)
 
@@ -60,8 +61,7 @@ class DNNWindow(tk.Frame):
 
     def drawColoredCell(self,bar, color, col):
         cell = tk.Frame(bar, bg = color)
-        cell.grid(column = col, row = 0, padx = 0, pady = 0)
-        # Change the background of this to red or green
+        cell.grid(column = col, row = 0, padx = 0, pady = 0, sticky = "nsew")
 
 
     #============================ Field Methods ==================================================
@@ -87,9 +87,10 @@ class DNNWindow(tk.Frame):
 
         row = 3
         for S in stockNames:
-            predictions = df["Prediction " + S].tolist()
-            self.drawPredictionHistory(predictions, S, row)
-            row = row + 2 
+            accuracy = df["Outcome " + S].tolist()
+            self.grid_rowconfigure(row + 1, weight = 1, minsize = 10)
+            self.drawPredictionHistory(accuracy, S, row)
+            row = row + 2
 
     def getPredictionHistory(self, dataFrame, stockName):
         return dataFrame["Predictions " + stockName]
