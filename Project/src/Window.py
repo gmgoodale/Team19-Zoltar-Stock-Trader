@@ -106,6 +106,7 @@ class UserInterface(tk.Tk):
             predictionArr = self.getPredictionsFromModel(predictionName, numpyData)
             predictionDF = pandas.DataFrame(predictionArr)
             predictionDF.columns = ["Prediction " + stock]
+
             # Now we need to tie the predictions to dates
             dates = list(csvData[startDate:endDate].index)
             predictionDates = []
@@ -115,6 +116,18 @@ class UserInterface(tk.Tk):
                 predictionDates.pop()
             predictionDF["Date"] = predictionDates
             predictionDF = predictionDF.set_index("Date")
+
+            # Now lets add a column for whether or not the prediction is correct
+            predictionOutcome = []
+            for i in range(0,len(predictionArr)):
+                if (numpyData[i][0] < numpyData[i][predictionTimeFrame-1] and predictionArr[i] == 1):
+                    predictionOutcome.append("True")
+                elif (numpyData[i][0] > numpyData[i][predictionTimeFrame-1] and predictionArr[i] == 0):
+                    predictionOutcome.append("True")
+                else: predictionOutcome.append("False")
+
+            predictionDF["Outcome " + stock] = predictionOutcome
+
             allData = pandas.concat([allData, predictionDF], axis=1, sort=False)
 
         # Save the combined, modified, data frames
