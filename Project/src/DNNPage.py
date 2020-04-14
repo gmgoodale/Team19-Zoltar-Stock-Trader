@@ -43,22 +43,22 @@ class DNNWindow(tk.Frame):
         self.modelRatioText.grid(row = widgetRow, column = widgetCol + 1, sticky = tk.W, padx = 2,
                                  pady = 5)
 
-    def drawPredictionHistory(self, dataFrame, stockName, widgetRow):
+    def drawPredictionHistory(self, predictions, stockName, widgetRow):
         widgetCol = 0
         barLabel = tk.Label(self, text = stockName + " Prediction Accuracy Over Time", font = SMALL_FONT)
         barLabel.grid(row = widgetRow, column = widgetCol, columnspan = 10, sticky = tk.S, padx = 5, pady = 5)
         bar = tk.Frame(self)
-        for i in range(0, total):
+        for i in range(0, len(predictions)):
             bar.grid_columnconfigure(i, weight = 1)
-            if modelHistory[i] == 1:
-                drawColoredCell(bar, "green", i)
+            if predictions[i] == 1:
+                self.drawColoredCell(bar, "green", i)
 
             else:
-                drawColoredCell(bar, "red", i)
+                self.drawColoredCell(bar, "red", i)
 
         bar.grid(row = widgetRow + 1, column = widgetCol, columnspan = 10, sticky = tk.N, padx = 5, pady = 0)
 
-    def drawColoredCell(bar, color, col):
+    def drawColoredCell(self,bar, color, col):
         cell = tk.Frame(bar, bg = color)
         cell.grid(column = col, row = 0, padx = 0, pady = 0)
         # Change the background of this to red or green
@@ -71,12 +71,15 @@ class DNNWindow(tk.Frame):
 
     def setModelRatio(self, dataFrame, stockNames):
         # Summing True Predictions
-        total = len(stockNames) * len(self.getPredictionResults(dataFrame, stockNames[0])) # Stocks * (Pre / Stocks)
+        total = 0
         numCorrect = 0
+        df = dataFrame.dropna()
         for S in stockNames:
-            for Prediction in self.getPredictionResults(S):
-                if bool(Prediction):
-                    numCorrect += 1
+            outcomes = df["Outcome " + S].tolist()
+            for outcome in outcomes:
+                if (str(outcome) == "True"):
+                    numCorrect = numCorrect + 1
+                total = total + 1
 
         self.modelRatioText.delete(1.0, "end")
         ratioString = str(numCorrect) + "/" + str(total)
@@ -84,11 +87,9 @@ class DNNWindow(tk.Frame):
 
         row = 2
         for S in stockNames:
-            self.drawPredictionHistory(dataFrame, S, row)
-            row += 2
+            predictions = df["Prediction " + S].tolist()
+            self.drawPredictionHistory(predictions, S, row)
+            row = row + 2
 
     def getPredictionHistory(self, dataFrame, stockName):
         return dataFrame["Predictions " + stockName]
-
-    def getPredictionResults(self, dataFrame, stockName):
-        return dataFrame["Correct " + stockName]

@@ -126,7 +126,7 @@ class UserInterface(tk.Tk):
                     predictionOutcome.append("True")
                 else: predictionOutcome.append("False")
 
-            predictionDF["Outcome" + stock] = predictionOutcome
+            predictionDF["Outcome " + stock] = predictionOutcome
 
             allData = pandas.concat([allData, predictionDF], axis=1, sort=False)
 
